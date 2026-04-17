@@ -1,7 +1,7 @@
 import Sidebar from "./components/sidebar/Sidebar"
 import Header from "./components/header/Header"
 import MaterialList from "./components/materialList/MaterialList"
-
+import AddMaterial from "./components/addMaterial/AddMaterial"
 const App = () => {
   
   return (
@@ -12,6 +12,8 @@ const App = () => {
       </Sidebar>
       <MaterialList>
       </MaterialList>
+      <AddMaterial
+      />
     </>
   )
 }
