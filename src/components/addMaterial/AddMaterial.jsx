@@ -3,9 +3,24 @@ import styles from './AddMaterial.module.scss'
 import useStore from "../../store/stateSettings";
 // import { useBattleButtons } from '../../system/battleButtons';
 
+
+
 const AddMaterial = () => {
   const [name, setName] = useState("");
+  const [status, setStatus] = useState("")
+  // test
   const maxLength = 128;
+
+  const saveClick = () => {
+    const data = localStorage.getItem('materialsData');
+    const previousData = data ? JSON.parse(data) : [];
+    const addData = {name: name, status:status}
+    previousData.push(addData)
+    localStorage.setItem('materialsData',JSON.stringify(previousData))
+    setOpenPopup('')
+    
+  }
+
 
   const {
     openPopup,setOpenPopup
@@ -19,7 +34,7 @@ const AddMaterial = () => {
           ×
         </button>
         <span className={styles.title}>教材の追加</span>
-        <button className={styles.saveButton}>
+        <button className={styles.saveButton} onClick={saveClick}>
           保存
         </button>
       </div>
@@ -37,7 +52,10 @@ const AddMaterial = () => {
               placeholder="教材名"
               value={name}
               maxLength={maxLength}
-              onChange={(e) => setName(e.target.value)}
+              onChange={(e) => {
+                setName(e.target.value)
+                setStatus('learning')
+              }}
               className={styles.nameInput}
             />
             <div className={styles.charCount}>

@@ -1,15 +1,15 @@
-import useStore from "../store/stateSettings";
+// import useStore from "../store/stateSettings";
 
 
-export const useButtonFunction = () => {
+// export const useButtonFunction = () => {
 
 
-  const materialSaveClick = () => {
+//   const materialSaveClick = () => {
     
-  };
+//   };
 
 
-  return {
-    materialSaveClick,
-  };
-};
+//   return {
+//     materialSaveClick,
+//   };
+// };
