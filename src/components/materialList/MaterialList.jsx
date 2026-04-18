@@ -5,9 +5,9 @@ import useStore from '../../store/stateSettings'
 
 const MaterialList = () => {
    const {
-    openPopup,setOpenPopup
+    openPopup,setOpenPopup,
+    saveIndex, setSaveIndex
   } = useStore()
-  const [saveIndex, setSaveIndex] = useState()
   const deleteClick = () => {
 
     let items = JSON.parse(localStorage.getItem('materialsData')) || [];
@@ -21,7 +21,11 @@ const MaterialList = () => {
       <ul className={styles.materialList}>
         {localStorage.getItem('materialsData') && 
           JSON.parse(localStorage.getItem('materialsData')).map((item, index) => (
-            <li key={index}>
+            <li key={index} onClick={() => {
+              setOpenPopup(`materialContent`)
+              setSaveIndex(index);
+            }}
+            >
               <ul className={`${styles.meterialDetail} ${(openPopup === `materialDetail${index}`) ? styles.active : ''}`}>
                 <li className={styles.edit}>編集</li>
                 <li className={styles.delete} onClick={() => setOpenPopup(`detailPopup`)}>削除</li>

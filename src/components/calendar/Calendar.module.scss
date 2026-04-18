@@ -1,0 +1,223 @@
+@use '../../utils/variables' as *;
+
+.calendarWrapper {
+  position: fixed;
+  inset: 0;
+  background-color: rgba(0, 0, 0, 0.18);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 200;
+  display: none;
+  &.active {
+    display: flex;
+  }
+
+  .calendarPanel {
+    background: #fff;
+    height: 95%;
+    border-radius: 14px;
+    box-shadow: 0 8px 40px rgba(0, 0, 0, 0.16);
+    padding: 28px 32px 24px;
+    width: 95%;
+
+    .calendarTitle {
+      font-size: 16px;
+      font-weight: 600;
+      color: #1a1a1a;
+      margin: 0 0 15px 0;
+    }
+
+    :global(.react-calendar) {
+      width: 100%;
+      border: none;
+      font-family: inherit;
+      line-height: 1.5;
+    }
+
+    :global(.react-calendar__navigation) {
+      display: flex;
+      align-items: center;
+      margin-bottom: 20px;
+
+      :global(.react-calendar__navigation__label) {
+        font-size: 15px;
+        font-weight: 600;
+        color: #1a1a1a;
+        background: transparent;
+        border: none;
+        cursor: pointer;
+        padding: 4px 6px;
+        display: flex;
+        align-items: center;
+        gap: 4px;
+        order: -1; 
+
+        &::after {
+          content: "▼";
+          font-size: 10px;
+          color: $textColor;
+        }
+
+        &:hover {
+          background: transparent;
+        }
+      }
+
+      :global(.react-calendar__navigation__arrow) {
+        background: transparent;
+        border: none;
+        font-size: 18px;
+        color: #aaa;
+        cursor: pointer;
+        padding: 4px 8px;
+        border-radius: 6px;
+        transition: color 0.15s;
+        min-width: unset;
+
+        &:hover {
+          color: $textColor;
+          background: transparent;
+        }
+
+        &:disabled {
+          color: #ddd;
+          cursor: default;
+        }
+      }
+
+      :global(.react-calendar__navigation__prev2-button),
+      :global(.react-calendar__navigation__next2-button) {
+        display: none;
+      }
+    }
+
+    :global(.react-calendar__month-view) {
+
+      :global(.react-calendar__month-view__weekdays) {
+        text-align: center;
+        margin-bottom: 4px;
+
+        :global(.react-calendar__month-view__weekdays__weekday) {
+          font-size: 13px;
+          font-weight: 500;
+          color: #999;
+          padding: 0 0 8px;
+
+          abbr {
+            text-decoration: none;
+          }
+        }
+      }
+
+      :global(.react-calendar__month-view__days) {
+        display: grid !important;
+        grid-template-columns: repeat(7, 1fr);
+        justify-items: center;
+        height: 220px;
+        place-items: center;
+
+        :global(.react-calendar__tile) {
+          width: 35px;
+          margin-inline-end: unset !important;
+          height: 35px;
+          position: relative;
+          border: none;
+          background: transparent;
+          font-size: 14px;
+          color: #1a1a1a;
+          cursor: pointer;
+          border-radius: 50%;
+          transition: background-color 0.12s;
+          padding: 0;
+
+          abbr {
+            width: 100%;
+            display: flex;
+            justify-content: center;
+            position: relative;
+            z-index: 1;
+
+            display: block !important;
+            text-align: center !important;
+          }
+
+          &:hover {
+            background-color: #f0f0f0;
+          }
+
+          &:global(.react-calendar__month-view__days__day--neighboringMonth) {
+            color: #ccc;
+          }
+
+          &:global(.react-calendar__tile--now) {
+            background: transparent;
+            color: #1a1a1a;
+          }
+
+          &:global(.react-calendar__tile--active) {
+            background-color: #1a7bef !important;
+            color: #fff !important;
+            border-radius: 50%;
+            font-weight: 600;
+
+            &:hover {
+              background-color: #1565c8 !important;
+            }
+          }
+        }
+      }
+    }
+
+    .todayLink {
+      display: block;
+      text-align: center;
+      font-size: 14px;
+      color: $textColor;
+      margin: 70px 0 24px;
+      cursor: pointer;
+      background: transparent;
+      border: none;
+      width: 100%;
+      padding: 0;
+
+      &:hover {
+        color: #1a7bef;
+      }
+    }
+
+    .buttonRow {
+      display: flex;
+      gap: 12px;
+
+      button {
+        padding: 14px 0;
+        font-size: 15px;
+        font-weight: 500;
+        color: #1a1a1a;
+        background: #fff;
+        border: 1.5px solid #ddd;
+        border-radius: 10px;
+        cursor: pointer;
+        width: 50%;
+        transition: background-color 0.15s;
+        display: flex;
+        justify-content: center;
+
+        &:hover {
+          background-color: #f5f5f5;
+        }
+        &.confirmBtn {
+          background: #1a7bef;
+          color: #fff;
+          &:hover {
+            opacity: .8;
+        
+          }
+        }
+
+      }
+
+    }
+  }
+}
