@@ -14,7 +14,7 @@ const AddMaterial = () => {
   const saveClick = () => {
     const data = localStorage.getItem('materialsData');
     const previousData = data ? JSON.parse(data) : [];
-    const addData = {name: name, status:status}
+    const addData = {name: name, status:status, time: ''}
     previousData.push(addData)
     localStorage.setItem('materialsData',JSON.stringify(previousData))
     setOpenPopup('')

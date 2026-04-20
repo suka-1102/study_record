@@ -11,7 +11,7 @@ const MaterialContent = () => {
   } = useStore()
 
   const datas = JSON.parse(localStorage.getItem('materialsData')) || [];
-  const textName = datas[saveIndex]
+  const data = datas[saveIndex]
 
   return (
     <div className={`${styles.overlay} ${(openPopup === 'materialContent') ? styles.active : ''}`}>
@@ -31,7 +31,7 @@ const MaterialContent = () => {
           <div className={styles.bookCover}>
             <div className={styles.bookCoverInner} />
           </div>
-          <span className={styles.bookLabel}>{textName?.name}</span>
+          <span className={styles.bookLabel}>{data?.name}</span>
         </div>
 
         <div className={styles.divider} />
@@ -39,7 +39,7 @@ const MaterialContent = () => {
         <div className={styles.fieldRow} onClick={() => setOpenPopup(`calendar`)}>
           <span className={styles.fieldIcon}></span>
           <span className={styles.fieldValue}>
-            {/* {dateStr}　{timeStr} */}
+            {data?.time}
           </span>
           <button className={styles.nowBtn}>現時刻</button>
         </div>

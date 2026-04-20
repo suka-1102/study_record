@@ -6,7 +6,8 @@ import useStore from '../../store/stateSettings'
 const MaterialList = () => {
    const {
     openPopup,setOpenPopup,
-    saveIndex, setSaveIndex
+    saveIndex, setSaveIndex,
+    setItemTime
   } = useStore()
   const deleteClick = () => {
 
@@ -22,8 +23,10 @@ const MaterialList = () => {
         {localStorage.getItem('materialsData') && 
           JSON.parse(localStorage.getItem('materialsData')).map((item, index) => (
             <li key={index} onClick={() => {
+              const timeLog = JSON.parse(localStorage.getItem('materialsData'))[index]?.time
               setOpenPopup(`materialContent`)
               setSaveIndex(index);
+              
             }}
             >
               <ul className={`${styles.meterialDetail} ${(openPopup === `materialDetail${index}`) ? styles.active : ''}`}>

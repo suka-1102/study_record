@@ -11,10 +11,32 @@ const MyCalendar = () => {
   
   }
   const confirmClick = () => {
-    console.log(value)
+    const date = new Date(value);
+
+    const year = date.getFullYear();
+    const month = String(date.getMonth() + 1).padStart(2, '0');
+    const day = String(date.getDate()).padStart(2, '0');
+    const hours = String(date.getHours()).padStart(2, '0');
+    const minutes = String(date.getMinutes()).padStart(2, '0');
+
+    const result = `${year}年${month}月${day}日 ${hours}:${minutes}`;
+
+    const data = localStorage.getItem('materialsData');
+    const previousData = data ? JSON.parse(data) : [];
+
+    const upDatedData = previousData.map((item, index) => {
+      if (index === saveIndex) {
+        return { ...item, time: result }; 
+      }
+      return item;
+    });
+
+    localStorage.setItem('materialsData', JSON.stringify(upDatedData));    
+    setOpenPopup('materialContent')
   }
   const {
-    openPopup,setOpenPopup
+    openPopup,setOpenPopup,
+    saveIndex
   } = useStore()
 
   return (

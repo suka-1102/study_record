@@ -9,6 +9,9 @@ const useStore = create((set, get) => ({
   saveIndex: '', 
   setSaveIndex: (index) => set({ saveIndex: index }),
 
+  itemTime: '', 
+  setItemTime: (time) => set({ itemTime: time }),
+
 }));
 
 export default useStore;
