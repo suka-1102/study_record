@@ -54,13 +54,30 @@
       align-items: flex-start;
       padding: 24px 16px 16px;
       gap: 16px;
-
-      .bookImage {
-        width: 80px;
-        height: 100px;
-        object-fit: cover;
-        border-radius: 4px;
+      .bookCover {
+        width: 44px;
+        height: 56px;
+        border-radius: 3px;
+        overflow: hidden;
+        box-shadow: 2px 2px 6px rgba(0, 0, 0, 0.18);
         flex-shrink: 0;
+
+        .bookCoverInner {
+          width: 100%;
+          height: 100%;
+          // background: linear-gradient(135deg, #5aabee 0%, #2176d2 60%, #1a5fa8 100%);
+          position: relative;
+
+          &::after {
+            content: "";
+            position: absolute;
+            left: 0;
+            top: 0;
+            bottom: 0;
+            width: 5px;
+            background: rgba(0, 0, 0, 0.15);
+          }
+        }
       }
 
       .nameArea {

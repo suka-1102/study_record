@@ -9,8 +9,14 @@ const useStore = create((set, get) => ({
   saveIndex: '', 
   setSaveIndex: (index) => set({ saveIndex: index }),
 
-  itemTime: '', 
-  setItemTime: (time) => set({ itemTime: time }),
+  calendarTime: '', 
+  setCalendarTime: (time) => set({ calendarTime: time }),
+
+  hoursLog: '', 
+  setHoursLog: (time) => set({ hoursLog: time }),
+
+  minutesLog: '', 
+  setMinutesLog: (time) => set({ minutesLog: time }),
 
 }));
 

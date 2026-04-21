@@ -7,7 +7,8 @@ const MaterialList = () => {
    const {
     openPopup,setOpenPopup,
     saveIndex, setSaveIndex,
-    setItemTime
+    // setItemTime
+    setCalendarTime,setHoursLog,setMinutesLog
   } = useStore()
   const deleteClick = () => {
 
@@ -23,21 +24,35 @@ const MaterialList = () => {
         {localStorage.getItem('materialsData') && 
           JSON.parse(localStorage.getItem('materialsData')).map((item, index) => (
             <li key={index} onClick={() => {
-              const timeLog = JSON.parse(localStorage.getItem('materialsData'))[index]?.time
               setOpenPopup(`materialContent`)
               setSaveIndex(index);
-              
+              const materialDatas = JSON.parse(localStorage.getItem('materialsData')) || [];
+              const materialData = materialDatas[index]
+              setCalendarTime(materialData?.time)
+              setHoursLog(materialData?.studyTimeH)
+              setMinutesLog(materialData?.studyTimeM)
             }}
             >
               <ul className={`${styles.meterialDetail} ${(openPopup === `materialDetail${index}`) ? styles.active : ''}`}>
                 <li className={styles.edit}>編集</li>
-                <li className={styles.delete} onClick={() => setOpenPopup(`detailPopup`)}>削除</li>
+                <li className={styles.delete} onClick={(e) => {
+                  e.stopPropagation()
+                  setOpenPopup(`detailPopup`)
+                  
+                }}>
+                  削除</li>
               </ul>
-              <button  onClick={() => {
+              <button  onClick={(e) => {
+                e.stopPropagation();
                 setOpenPopup(`materialDetail${index}`);
                 setSaveIndex(index);
+
               }} className={`fa-solid fa-ellipsis`}></button>
-              <span className={styles.meterialImage}></span>
+              {/* <span className={styles.meterialImage}></span> */}
+              <div className={styles.bookCover}>
+                <div className={styles.bookCoverInner} />
+              </div>
+
               <div className={styles.materialName}>{item.name}</div>
             </li>
           ))

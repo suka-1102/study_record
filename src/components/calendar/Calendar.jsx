@@ -5,11 +5,8 @@ import useStore from '../../store/stateSettings'
 
 const MyCalendar = () => {
   const [value, setValue] = useState(new Date())
-
-  const handleToday = () => {
-    setValue(new Date())
   
-  }
+
   const confirmClick = () => {
     const date = new Date(value);
 
@@ -20,23 +17,14 @@ const MyCalendar = () => {
     const minutes = String(date.getMinutes()).padStart(2, '0');
 
     const result = `${year}年${month}月${day}日 ${hours}:${minutes}`;
-
-    const data = localStorage.getItem('materialsData');
-    const previousData = data ? JSON.parse(data) : [];
-
-    const upDatedData = previousData.map((item, index) => {
-      if (index === saveIndex) {
-        return { ...item, time: result }; 
-      }
-      return item;
-    });
-
-    localStorage.setItem('materialsData', JSON.stringify(upDatedData));    
+    setCalendarTime(result)
+  
     setOpenPopup('materialContent')
   }
   const {
     openPopup,setOpenPopup,
-    saveIndex
+    saveIndex,
+    setCalendarTime
   } = useStore()
 
   return (
@@ -63,7 +51,7 @@ const MyCalendar = () => {
           next2Label={null}
         />
 
-        <button className={styles.todayLink} onClick={handleToday}>
+        <button className={styles.todayLink} onClick={() => setValue(new Date())}>
           今日の日付を設定
         </button>
 

@@ -1,4 +1,4 @@
-
+@use '../../utils/variables' as *;
 .overlay {
   position: fixed;
   inset: 0;
@@ -15,7 +15,7 @@
     display: flex;
     align-items: space-between;
     padding: 14px 20px;
-    background-color: #ffffff;
+    background-color: #fff;
     width: 100%;
     border-bottom: none;
 
@@ -27,13 +27,13 @@
       height: 32px;
       border: none;
       background: transparent;
-      color: #555;
+      color: $textColor;
       cursor: pointer;
       border-radius: 6px;
       transition: background-color 0.15s;
 
       &:hover {
-        background-color: #f0f0f0;
+        background-color: $backGroundGray;
       }
     }
 
@@ -41,7 +41,7 @@
       flex: 1;
       font-size: 15px;
       font-weight: 600;
-      color: #1a1a1a;
+      color: $colorBlack;
       margin: 0 0 0 8px;
       align-content: center;
       letter-spacing: 0.01em;
@@ -50,7 +50,7 @@
     .saveBtn {
       font-size: 15px;
       font-weight: 600;
-      color: #1a7bef;
+      color: $blue;
       background: transparent;
       border: none;
       cursor: pointer;
@@ -68,7 +68,7 @@
     width: 100%;
     height: 100%;
     max-width: 840px;
-    background-color: #ffffff;
+    background-color: #fff;
     border-radius: 0 0 12px 12px;
     overflow: hidden;
     display: flex;
@@ -78,14 +78,14 @@
     .tabBar {
       display: flex;
       margin: 0 0 0 0;
-      background-color: #f2f2f2;
+      background-color: $backGroundGray;
 
       .tab {
         flex: 1;
         padding: 10px 0;
         font-size: 14px;
         font-weight: 500;
-        color: #888;
+        color: $textColor;
         border: none;
         background: transparent;
         cursor: pointer;
@@ -93,22 +93,22 @@
         letter-spacing: 0.01em;
 
         &.tabActive {
-          background-color: #5a5a5a;
-          color: #ffffff;
+          background-color: $shadowColor;
+          color: #fff;
           font-weight: 600;
           border-radius: 0;
         }
 
         &:hover:not(.tabActive) {
-          color: #555;
-          background-color: #e8e8e8;
+          color: $textColor;
+          background-color: $borderColor;
         }
       }
     }
 
     .divider {
       height: 1px;
-      background-color: #e8e8e8;
+      background-color: $borderColor;
       margin: 0;
     }
 
@@ -139,14 +139,14 @@
             top: 0;
             bottom: 0;
             width: 5px;
-            background: rgba(0, 0, 0, 0.15);
+            background: $shadowColor;
           }
         }
       }
 
       .bookLabel {
         font-size: 16px;
-        color: #1a1a1a;
+        color: $colorBlack;
         font-weight: 400;
       }
     }
@@ -156,30 +156,36 @@
       align-items: center;
       gap: 10px;
       padding: 14px 20px;
+      &.studyTimeButton {
+        cursor: pointer;
+        &:hover {
+          background-color: $backGroundGray;
+        }
+      }
 
       .fieldIcon {
         display: flex;
         align-items: center;
-        color: #888;
+        color: $textColor;
         flex-shrink: 0;
       }
 
       .fieldValue {
         flex: 1;
         font-size: 15px;
-        color: #1a1a1a;
+        color: $colorBlack;
       }
 
       .fieldPlaceholder {
         flex: 1;
         font-size: 15px;
-        color: #aaa;
+        color: $textColor;
       }
 
       .nowBtn {
         font-size: 14px;
         font-weight: 600;
-        color: #1a7bef;
+        color: $blue;
         background: transparent;
         border: none;
         cursor: pointer;
@@ -195,7 +201,7 @@
       .chevron {
         display: flex;
         align-items: center;
-        color: #bbb;
+        color: $textColor;
         margin-left: auto;
       }
     }
@@ -211,14 +217,123 @@
         outline: none;
         resize: none;
         font-size: 14px;
-        color: #333;
+        color: $colorBlack;
         line-height: 1.6;
         background: transparent;
         font-family: inherit;
 
         &::placeholder {
-          color: #bbb;
+          color: $textColor;
         }
+      }
+    }
+  }
+}
+
+.mask {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.6);
+  opacity: 0;
+  visibility: hidden;
+  transition: 0.3s;
+  &.active {
+    opacity: 1;
+    visibility: visible;
+  }
+}
+
+.studyTimePopup {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate((-50%, -50%));
+  padding: 30px;
+  background-color: #fff;
+  border-radius: 10px;
+  min-width: 430px;
+  transition: 0.3s;
+  opacity: 0;
+  visibility: hidden;
+  .title {
+    font-size: 15px;
+    font-weight: 600;
+    color: $colorBlack;
+    margin: 0 0 16px;
+  }
+
+  .inputRow {
+    display: flex;
+    gap: 24px;
+    margin-bottom: 28px;
+    .inputGroup {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+
+      .label {
+        font-size: 13px;
+        font-weight: 500;
+        color: $colorBlack;
+      }
+    }
+  }
+
+
+  .input {
+    border: none;
+    border-bottom: 1.5px solid $borderColor;
+    outline: none;
+    font-size: 16px;
+    padding: 4px 0;
+    background: transparent;
+    color: $colorBlack;
+    caret-color: $blue;
+    width: 100%;
+
+    &::-webkit-outer-spin-button,
+    &::-webkit-inner-spin-button {
+      -webkit-appearance: none;
+      margin: 0;
+    }
+
+    &::placeholder {
+      color: $colorBlack;
+    }
+
+    &:focus {
+      border-bottom: 2px solid $colorBlack;
+    }
+  }
+
+  &.active {
+    opacity: 1;
+    visibility: visible;
+  }
+  p {
+    margin-bottom: 15px;
+  }
+  .buttonWrapper {
+    display: flex;
+    width: 100%;
+    justify-content: space-between;
+    padding-top: 20px;
+    button {
+      width: 47%;
+      height: 45px;
+      border-radius: 5px;
+      display: flex; 
+      justify-content: center;
+      background-color: #fff;
+      border: 1px solid $borderColor;
+      padding: 10px 0 ;
+      &:last-child {
+        background-color: $blue;
+        color: #fff;
       }
     }
   }

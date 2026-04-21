@@ -14,7 +14,7 @@ const AddMaterial = () => {
   const saveClick = () => {
     const data = localStorage.getItem('materialsData');
     const previousData = data ? JSON.parse(data) : [];
-    const addData = {name: name, status:status, time: ''}
+    const addData = {name: name, status:status, time: '', studyTimeH: '',studyTimeM: '', memo: ''} 
     previousData.push(addData)
     localStorage.setItem('materialsData',JSON.stringify(previousData))
     setOpenPopup('')
@@ -40,11 +40,14 @@ const AddMaterial = () => {
       </div>
       <div className={styles.contentsWrapper}>
         <div className={styles.imageSection}>
-          <img
+          {/* <img
             src="public/material.png"
             alt="教材"
             className={styles.bookImage}
-          />
+          /> */}
+          <div className={styles.bookCover}>
+            <div className={styles.bookCoverInner} />
+          </div>
           <div className={styles.nameArea}>
             <label className={styles.nameLabel}>教材名</label>
             <input
