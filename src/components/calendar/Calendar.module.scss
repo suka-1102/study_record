@@ -14,7 +14,7 @@
   }
 
   .calendarPanel {
-    background: #fff;
+    background: $white;
     height: 95%;
     border-radius: 14px;
     box-shadow: 0 8px 40px rgba(0, 0, 0, 0.16);
@@ -24,7 +24,7 @@
     .calendarTitle {
       font-size: 16px;
       font-weight: 600;
-      color: #1a1a1a;
+      color: $colorBlack;
       margin: 0 0 15px 0;
     }
 
@@ -43,7 +43,7 @@
       :global(.react-calendar__navigation__label) {
         font-size: 15px;
         font-weight: 600;
-        color: #1a1a1a;
+        color: $colorBlack;
         background: transparent;
         border: none;
         cursor: pointer;
@@ -68,7 +68,7 @@
         background: transparent;
         border: none;
         font-size: 18px;
-        color: #aaa;
+        color: $shadowColor;
         cursor: pointer;
         padding: 4px 8px;
         border-radius: 6px;
@@ -81,7 +81,7 @@
         }
 
         &:disabled {
-          color: #ddd;
+          color: $backGroundGray;
           cursor: default;
         }
       }
@@ -101,7 +101,7 @@
         :global(.react-calendar__month-view__weekdays__weekday) {
           font-size: 13px;
           font-weight: 500;
-          color: #999;
+          color: $shadowColor;
           padding: 0 0 8px;
 
           abbr {
@@ -125,7 +125,7 @@
           border: none;
           background: transparent;
           font-size: 14px;
-          color: #1a1a1a;
+          color: $colorBlack;
           cursor: pointer;
           border-radius: 50%;
           transition: background-color 0.12s;
@@ -143,26 +143,26 @@
           }
 
           &:hover {
-            background-color: #f0f0f0;
+            background-color: $borderColor;
           }
 
           &:global(.react-calendar__month-view__days__day--neighboringMonth) {
-            color: #ccc;
+            color: $borderColor;
           }
 
           &:global(.react-calendar__tile--now) {
             background: transparent;
-            color: #1a1a1a;
+            color: $colorBlack;
           }
 
           &:global(.react-calendar__tile--active) {
-            background-color: #1a7bef !important;
-            color: #fff !important;
+            background-color: $blue !important;
+            color: $white !important;
             border-radius: 50%;
             font-weight: 600;
 
             &:hover {
-              background-color: #1565c8 !important;
+              background-color: $blue !important;
             }
           }
         }
@@ -182,7 +182,7 @@
       padding: 0;
 
       &:hover {
-        color: #1a7bef;
+        color: $blue;
       }
     }
 
@@ -194,9 +194,9 @@
         padding: 14px 0;
         font-size: 15px;
         font-weight: 500;
-        color: #1a1a1a;
-        background: #fff;
-        border: 1.5px solid #ddd;
+        color: $colorBlack;
+        background: $white;
+        border: 1.5px solid $borderColor;
         border-radius: 10px;
         cursor: pointer;
         width: 50%;
@@ -205,11 +205,11 @@
         justify-content: center;
 
         &:hover {
-          background-color: #f5f5f5;
+          background-color: $borderColor;
         }
         &.confirmBtn {
-          background: #1a7bef;
-          color: #fff;
+          background: $blue;
+          color: $white;
           &:hover {
             opacity: .8;
         

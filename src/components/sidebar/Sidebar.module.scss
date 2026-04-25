@@ -1,3 +1,5 @@
+@use '../../utils/variables' as *;
+
 .sidebar {
   width: 23%;
   height: 100%;
@@ -9,9 +11,15 @@
     padding-left: 30px;
     li {
       padding: 5px 0;
-      button {
+      cursor: pointer;
+      &:hover {
+        background-color: $backGroundGray;
+      }
+
+      a {
         display: flex;
-        gap: 20px;
+        gap: 20px;width: 100%;
+
         span {
           font-size: 18px;
         }

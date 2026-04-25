@@ -1,0 +1,64 @@
+@use '../../utils/variables' as *;
+.report {
+  background-color: $white;
+  position: fixed;
+  right: 0;
+  margin-top: 50px;
+  width: 77%;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  h1 {
+    color: $blue;
+    display: flex;
+    margin: 0 auto;
+    padding-bottom: 8px;
+    font-size: 16px;
+    font-weight: 800;
+  }
+  .border {
+    width: 100%;
+    height: 2px;
+    background-color: $blue;
+  }
+  .contents {
+    margin: 15px 0;
+    &:hover {
+      background-color: $backGroundGrayLight;
+    }
+    h2 {
+      font-size: 12px;
+      font-weight: 700;
+      margin-bottom: 8px;
+    }
+    .learningProcess {
+      width: 70%;
+      margin: 0 auto;
+      height: 280px;
+
+    }
+    .recordAllTimes {
+      display: flex;
+      height: 50px;
+      background-color: $backGroundGrayDark;
+      border-radius: 10px;
+      align-items: center;
+      
+
+      li {
+        width: 33%;
+        display: flex;
+        align-items: center;
+        flex-direction: column;
+        p {
+          font-size: 12px;
+        }
+      }
+      .separater {
+        width: 1px;
+        height: 70%;
+        background-color: $borderColor;
+      }
+    }
+  }
+}

@@ -1,6 +1,6 @@
 @use '../../utils/variables' as *;
 .meterials {
-  background-color: #f5f4f4;
+  background-color: $backGroundGray;
   position: fixed;
   right: 0;
   margin-top: 50px;
@@ -9,8 +9,8 @@
   flex-direction: column;
   height: 100%;
   .addMaterial {
-    border: 1px solid #919090;
-    color: #777676;
+    border: 1px solid $shadowColor;
+    color: $shadowColor;
     font-weight: 700;
     padding: 5px;
     // z-index: 1;
@@ -22,7 +22,7 @@
     height: 45px;
     margin: 5px auto;
     &:hover {
-      background-color: #e2e0e0;
+      background-color: $borderColor;
     }
   }
   .materialList {
@@ -34,7 +34,7 @@
       cursor: pointer;
       width: 20%;
       height: 170px;
-      background-color: #fff;
+      background-color: $white;
       border-radius: 8px;
       padding: 10px 10px;
       position: relative;
@@ -43,7 +43,7 @@
         height: 150px;
         position: absolute;
         border-radius: 5px;
-        background-color: #fff;
+        background-color: $white;
         box-shadow: 0px 4px 5px -2px $shadowColor;
         z-index: 10;
         display: none;
@@ -93,7 +93,6 @@
         .bookCoverInner {
           width: 100%;
           height: 100%;
-          // background: linear-gradient(135deg, #5aabee 0%, #2176d2 60%, #1a5fa8 100%);
           position: relative;
 
           &::after {
@@ -110,7 +109,7 @@
 
       .bookLabel {
         font-size: 16px;
-        color: #1a1a1a;
+        color: $colorBlack;
         font-weight: 400;
       }
       }
@@ -152,7 +151,7 @@
     left: 50%;
     transform: translate((-50%, -50%));
     padding: 30px;
-    background-color: #fff;
+    background-color: $white;
     border-radius: 10px;
     min-width: 430px;
     transition: 0.3s;
@@ -176,12 +175,12 @@
         border-radius: 5px;
         display: flex; 
         justify-content: center;
-        background-color: #fff;
+        background-color: $white;
         border: 1px solid $borderColor;
         padding: 10px 0 ;
         &:last-child {
           background-color: $blue;
-          color: #fff;
+          color: $white;
         }
       }
     }

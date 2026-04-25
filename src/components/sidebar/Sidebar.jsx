@@ -1,11 +1,22 @@
 import styles from './Sidebar.module.scss';
+import { NavLink } from 'react-router-dom';
 
 const Sidebar = () => {
   return (
     <div className={styles.sidebar}>
       <ul>
-        <li><button><span className={`fa-solid fa-pen`}></span><p>記録する</p></button></li>
-        <li><button><span className={`fa-solid fa-pen`}></span><p>記録する</p></button></li>
+        <li>
+          <NavLink to="/">
+            <span className="fa-solid fa-pen"></span>
+            <p>記録する</p>
+          </NavLink>
+        </li>
+        <li>
+          <NavLink to="/report">
+            <span className="fa-solid fa-chart-bar"></span>
+            <p>レポート</p>
+          </NavLink>
+        </li>
       </ul>
     </div>
   )
