@@ -3,7 +3,7 @@ import { Bar } from "react-chartjs-2";
 
 
 import React from "react";
-import { createElement } from "react";
+// import { createElement } from "react";
 import {
   Chart as ChartJS,
   CategoryScale,
@@ -39,7 +39,7 @@ export const ChartBar = () => {
   const labels = Array.from({ length: 7 }, (_, i) => {
     const date = new Date(today);
     date.setDate(today.getDate() - (6 - i));
-    
+
     const month = date.getMonth() + 1;
     const day = date.getDate();
     const weekdays = ["日", "月", "火", "水", "木", "金", "土"];
@@ -98,7 +98,7 @@ const Report = () => {
             </li>
             <div className={styles.separater}></div>
             <li>
-            
+
               <p>総学習時間</p>
               <span></span>
             </li>

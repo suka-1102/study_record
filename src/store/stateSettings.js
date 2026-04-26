@@ -1,7 +1,7 @@
 import { create } from "zustand";
 
 
-const useStore = create((set, get) => ({
+const useStore = create(set => ({
 
   openPopup: '', 
   setOpenPopup: (status) => set({ openPopup: status }),
