@@ -1,13 +1,13 @@
-import { useState } from "react";
+// import { useState } from "react";
 import styles from './MaterialList.module.scss'
 import useStore from '../../store/stateSettings'
 
 
 const MaterialList = () => {
-   const {
-    openPopup,setOpenPopup,
+  const {
+    openPopup, setOpenPopup,
     saveIndex, setSaveIndex,
-    setCalendarTime,setHoursLog,setMinutesLog
+    setCalendarTime, setHoursLog, setMinutesLog
   } = useStore()
   const deleteClick = () => {
 
@@ -15,12 +15,12 @@ const MaterialList = () => {
     items.splice(saveIndex, 1);
     localStorage.setItem('materialsData', JSON.stringify(items));
     setOpenPopup(``)
-    
+
   }
   return (
     <div className={styles.meterials}>
       <ul className={styles.materialList}>
-        {localStorage.getItem('materialsData') && 
+        {localStorage.getItem('materialsData') &&
           JSON.parse(localStorage.getItem('materialsData')).map((item, index) => (
             <li key={index} onClick={() => {
               setOpenPopup(`materialContent`)
@@ -37,11 +37,11 @@ const MaterialList = () => {
                 <li className={styles.delete} onClick={(e) => {
                   e.stopPropagation()
                   setOpenPopup(`detailPopup`)
-                  
+
                 }}>
                   削除</li>
               </ul>
-              <button  onClick={(e) => {
+              <button onClick={(e) => {
                 e.stopPropagation();
                 setOpenPopup(`materialDetail${index}`);
                 setSaveIndex(index);
@@ -57,12 +57,12 @@ const MaterialList = () => {
           ))
         }
       </ul>
-      <div className={`${styles.mask} ${(openPopup === `detailPopup` ) ? styles.active : ''}`}></div>
+      <div className={`${styles.mask} ${(openPopup === `detailPopup`) ? styles.active : ''}`}></div>
       <div className={`${styles.detailPopup} ${(openPopup === `detailPopup`) ? styles.active : ''}`}>
         <p>本当に削除しますか？</p>
         <div className={styles.buttonWrapper}>
           <button className={styles.cancel} onClick={() => setOpenPopup(``)}>キャンセル</button>
-          <button className={styles.proceed} onClick ={deleteClick}>削除</button>
+          <button className={styles.proceed} onClick={deleteClick}>削除</button>
         </div>
       </div>
       <button className={styles.addMaterial} onClick={() => setOpenPopup('addMaterial')}>教材を追加 </button>
