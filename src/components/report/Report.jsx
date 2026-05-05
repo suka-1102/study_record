@@ -3,7 +3,6 @@ import { Bar } from "react-chartjs-2";
 
 
 import React from "react";
-import { createElement } from "react";
 import {
   Chart as ChartJS,
   CategoryScale,
@@ -68,15 +67,6 @@ export const ChartBar = () => {
   };
   return <Bar options={options} data={data} />;
 };
-
-ChartJS.register(
-  CategoryScale,
-  LinearScale,
-  BarElement,
-  Title,
-  Tooltip,
-  Legend
-);
 
 const Report = () => {
   return (

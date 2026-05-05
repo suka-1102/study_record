@@ -95,9 +95,6 @@ const MaterialContent = () => {
 
         <div className={styles.divider} />
 
-
-        <div className={styles.divider} />
-
         <div className={styles.memoArea}>
           <textarea
             className={styles.memoInput}

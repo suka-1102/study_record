@@ -24,17 +24,6 @@ const App = () => {
         <Route path="/report" element={<Report />} />
       </Routes>
     </BrowserRouter>
-    // <>
-    //   <Header></Header>
-    
-    //   <Sidebar>
-    //   </Sidebar>
-    //   <MaterialList>
-    //   </MaterialList>
-    //   <AddMaterial></AddMaterial>
-    //   <MaterialContent></MaterialContent>
-    //   <MyCalendar></MyCalendar>
-    // </>
   )
 }
 
