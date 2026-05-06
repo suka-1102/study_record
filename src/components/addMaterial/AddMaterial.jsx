@@ -2,8 +2,6 @@ import { useState } from "react";
 import styles from './AddMaterial.module.scss'
 import useStore from "../../store/stateSettings";
 
-
-
 const AddMaterial = () => {
   const [name, setName] = useState("");
   const [status, setStatus] = useState("")
@@ -82,7 +80,7 @@ const AddMaterial = () => {
         </div>
         <div className={`${styles.mask} ${(statusModal === true) ? styles.active : ''}`}></div>
           <div className={`${styles.studyTimePopup} ${(statusModal === true) ? styles.active : ''}`}>
-            <h2 className={styles.title}>学習時間</h2>
+            <h2 className={styles.title}>ステータス</h2>
   
             <div className={styles.inputRow}>
               <div className={styles.inputGroup}>
@@ -139,8 +137,8 @@ const AddMaterial = () => {
                 </ul>
               </div>
             </div>
-
-        </div>
+            <div className={styles.cancel} onClick={() => setStatusModal(false) }>キャンセル</div>
+          </div>
         <div className={styles.divider} />
         
       </div>
