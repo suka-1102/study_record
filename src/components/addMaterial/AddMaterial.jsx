@@ -1,26 +1,26 @@
 import { useState } from "react";
 import styles from './AddMaterial.module.scss'
 import useStore from "../../store/stateSettings";
-// import { useBattleButtons } from '../../system/battleButtons';
 
 
 
 const AddMaterial = () => {
   const [name, setName] = useState("");
   const [status, setStatus] = useState("")
-  // test
+  const [statusModal, setStatusModal] = useState(false)
   const maxLength = 128;
 
   const saveClick = () => {
+    if (!name.trim()) return;
     const data = localStorage.getItem('materialsData');
     const previousData = data ? JSON.parse(data) : [];
     const addData = {name: name, status:status, time: '', studyTimeH: '',studyTimeM: '', memo: ''} 
     previousData.push(addData)
     localStorage.setItem('materialsData',JSON.stringify(previousData))
+    setName("")
+    setStatus("")
     setOpenPopup('')
-    
   }
-
 
   const {
     openPopup,setOpenPopup
@@ -30,7 +30,12 @@ const AddMaterial = () => {
   return (
     <div className={`${styles.container} ${(openPopup === 'addMaterial') ? styles.active : ''}`}>
       <div className={styles.top}>
-        <button className={styles.closeButton} onClick={() => setOpenPopup('')}>
+        <button className={styles.closeButton} onClick={() => {
+          setOpenPopup('')
+          setStatus("")
+          setName("")
+        }}
+        >
           ×
         </button>
         <span className={styles.title}>教材の追加</span>
@@ -57,7 +62,6 @@ const AddMaterial = () => {
               maxLength={maxLength}
               onChange={(e) => {
                 setName(e.target.value)
-                setStatus('learning')
               }}
               className={styles.nameInput}
             />
@@ -70,15 +74,74 @@ const AddMaterial = () => {
 
         <div className={styles.divider} />
 
-        <div className={styles.row}>
+        <div className={styles.row} onClick={() => setStatusModal(true)}>
           <span className={styles.rowLabel}>ステータス</span>
-          <button className={styles.rowValue}>学習中</button>
+          <span className={styles.rowValue}>
+            {status === "learning" ? "学習中" : status === "completed" ? "完了" : status === "standBy" ? "スタンバイ" : ""}
+          </span>
+        </div>
+        <div className={`${styles.mask} ${(statusModal === true) ? styles.active : ''}`}></div>
+          <div className={`${styles.studyTimePopup} ${(statusModal === true) ? styles.active : ''}`}>
+            <h2 className={styles.title}>学習時間</h2>
+  
+            <div className={styles.inputRow}>
+              <div className={styles.inputGroup}>
+                <ul>
+                  <li>
+                    <label>
+                      <input
+                        type="radio"
+                        name="status"
+                        value="learning"
+                        checked={status === "learning"}
+                        onChange={() => 
+                        {
+                          setStatusModal(false)
+                          setStatus("learning")
+
+                        }}
+                      />
+                      学習中
+                    </label>
+                  </li>
+                  <li>
+                    <label>
+                      <input
+                        type="radio"
+                        name="status"
+                        value="completed"
+                        checked={status === "completed"}
+                        onChange={() => 
+                        {
+                          setStatusModal(false)
+                          setStatus("completed")
+                        }}
+                      />
+                      完了
+                    </label>
+                  </li>
+                  <li>
+                    <label>
+                      <input
+                        type="radio"
+                        name="status"
+                        value="standBy"
+                        checked={status === "standBy"}
+                        onChange={() => 
+                        {
+                          setStatusModal(false)
+                          setStatus("standBy")
+                        }}
+                      />
+                      スタンバイ
+                    </label>
+                  </li>
+                </ul>
+              </div>
+            </div>
+
         </div>
         <div className={styles.divider} />
-
-        {/* <div className="statuspopUp">
-
-        </div> */}
         
       </div>
       

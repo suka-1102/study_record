@@ -1,21 +1,30 @@
 // import { useState } from "react";
 import styles from './MaterialContent.module.scss'
 import useStore from '../../store/stateSettings';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 
 
 
 const MaterialContent = () => {
   const {
-    openPopup,setOpenPopup,
+    openPopup, setOpenPopup,
     saveIndex,
-    calendarTime,hoursLog, minutesLog,
-    setHoursLog,setMinutesLog
+    calendarTime, setCalendarTime, hoursLog, minutesLog,
+    setHoursLog, setMinutesLog
   } = useStore()
   const [studyTimeLog, setStudyTimeLog] = useState(false);
   const [minutes, setMinutes] = useState(0)
   const [hours, setHours] = useState(0)
   const [memo, setMemo] = useState()
+  useEffect(() => {
+    const data = JSON.parse(localStorage.getItem('materialsData')) || [];
+    const item = data[saveIndex];
+    if (item) {
+      setMemo(item.memo || '');
+      setHours(item.studyTimeH || 0);
+      setMinutes(item.studyTimeM || 0);
+    }
+  }, [saveIndex])
 
   
 
@@ -38,8 +47,8 @@ const MaterialContent = () => {
       if (index === saveIndex) {
         return { ...item, 
           time: calendarTime ,
-          studyTimeH: hours,
-          studyTimeM: minutes,
+          studyTimeH: hoursLog,
+          studyTimeM: minutesLog,
           memo: memo,
         }; 
       }
@@ -47,6 +56,20 @@ const MaterialContent = () => {
     });
     localStorage.setItem('materialsData', JSON.stringify(upDatedData));  
     setOpenPopup('')
+  }
+
+  const nowBtnClick = (e) => {
+    e.stopPropagation()
+    const date = new Date();
+
+    const year = date.getFullYear();
+    const month = String(date.getMonth() + 1).padStart(2, '0');
+    const day = String(date.getDate()).padStart(2, '0');
+    const hours = String(date.getHours()).padStart(2, '0');
+    const minutes = String(date.getMinutes()).padStart(2, '0');
+
+    const result = `${year}年${month}月${day}日 ${hours}:${minutes}`;
+    setCalendarTime(result)
   }
 
   return (
@@ -77,7 +100,7 @@ const MaterialContent = () => {
           <span className={styles.fieldValue}>
             {calendarTime}
           </span>
-          <button className={styles.nowBtn}>現時刻</button>
+          <button className={styles.nowBtn} onClick={nowBtnClick}>現時刻</button>
         </div>
 
         <div className={styles.divider} />
