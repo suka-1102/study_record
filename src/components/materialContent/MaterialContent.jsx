@@ -1,4 +1,3 @@
-// import { useState } from "react";
 import styles from './MaterialContent.module.scss'
 import useStore from '../../store/stateSettings';
 import { useState, useEffect } from 'react';
@@ -21,8 +20,8 @@ const MaterialContent = () => {
     const item = data[saveIndex];
     if (item) {
       setMemo(item.memo || '');
-      setHours(item.studyTimeH || 0);
-      setMinutes(item.studyTimeM || 0);
+      setHours(0);
+      setMinutes(0);
     }
   }, [saveIndex])
 
@@ -34,27 +33,44 @@ const MaterialContent = () => {
 
 
   const studyTimeSet = () => {
-    setHoursLog(hours)
-    setMinutesLog(minutes)
+    if (hours == null|| minutes == null || (hours == 0 && minutes == 0)) return;
+    if(hours == 0) {
+      setHoursLog(0)
+    } else {
+      setHoursLog(hours)
+    }
+    if(minutes == 0) {
+      setMinutesLog(0)
+    } else {
+      setMinutesLog(minutes)
+    }
+
     setStudyTimeLog(false)
   }
 
   const saveClick = () => {
+    if (!calendarTime || hours == null|| minutes == null || (hours == 0 && minutes == 0)) return;
     const data = localStorage.getItem('materialsData');
     const previousData = data ? JSON.parse(data) : [];
 
     const upDatedData = previousData.map((item, index) => {
       if (index === saveIndex) {
         return { ...item, 
-          time: calendarTime ,
-          studyTimeH: hoursLog,
-          studyTimeM: minutesLog,
+          time: [...(item.time || []), calendarTime],
+          studyTimeH: [...(item.studyTimeH || []), hoursLog],
+          studyTimeM: [...(item.studyTimeM || []), minutesLog],
           memo: memo,
         }; 
       }
       return item;
     });
     localStorage.setItem('materialsData', JSON.stringify(upDatedData));  
+    setCalendarTime()
+    setHoursLog()
+    setMinutesLog()
+    setHours(0)
+    setMinutes(0)
+    
     setOpenPopup('')
   }
 

@@ -1,6 +1,6 @@
 import styles from './Report.module.scss';
 import { Bar } from "react-chartjs-2";
-
+import { getGraphDatas } from '../../system/graphData';
 
 import React from "react";
 import {
@@ -23,6 +23,9 @@ ChartJS.register(
 );
 
 export const ChartBar = () => {
+  const {
+    graphDatas
+  } = getGraphDatas()
   const options = {
     responsive: true,
     scales: {
@@ -30,7 +33,9 @@ export const ChartBar = () => {
       y: { stacked: true },
     },
     plugins: {
-      legend: { position: "top" }
+      legend: {
+        display: false,
+      }
     }
   };
 
@@ -47,23 +52,33 @@ export const ChartBar = () => {
     return `${month}/${day}\n${weekday}`;
 
   })
+  const backgroundColors = [
+    "rgba(0, 4, 255, 0.5)",
+    "rgb(210, 255, 46)",
+    "rgb(38, 255, 31)",
+    "rgb(255, 43, 43)",
+    "rgb(153, 102, 255)",
+    "rgb(255, 207, 86)",
+    "rgb(75, 192, 192)",
+    "rgb(255, 168, 81)",
+    "rgb(199, 199, 199)",
+    "rgb(83, 103, 255)",
+  ];
 
-  const data1 = [12, 11, 14, 52, 14, 32, 36];
-  const data2 = [22, 31, 17, 32, 24, 62, 66];
+  const setDatas = []
+
+  graphDatas.forEach((d, index) => {
+    setDatas.push({
+      data: d,
+      backgroundColor: backgroundColors[index],
+    });
+  })
+
+  console.log(setDatas)
 
   const data = {
     labels,
-    datasets: [
-      {
-        data: data1,
-        backgroundColor: "rgba(255, 99, 132, 0.5)"
-      },
-      {
-        data: data2,
-        backgroundColor: "rgba(146, 31, 56, 0.5)"
-      },
-
-    ]
+    datasets: setDatas    
   };
   return <Bar options={options} data={data} />;
 };

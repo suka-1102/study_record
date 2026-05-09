@@ -25,11 +25,11 @@ const MaterialList = () => {
             <li key={index} onClick={() => {
               setOpenPopup(`materialContent`)
               setSaveIndex(index);
-              const materialDatas = JSON.parse(localStorage.getItem('materialsData')) || [];
-              const materialData = materialDatas[index]
-              setCalendarTime(materialData?.time)
-              setHoursLog(materialData?.studyTimeH)
-              setMinutesLog(materialData?.studyTimeM)
+              // const materialDatas = JSON.parse(localStorage.getItem('materialsData')) || [];
+              // const materialData = materialDatas[index]
+              // setCalendarTime(materialData?.time)
+              // setHoursLog(materialData?.studyTimeH)
+              // setMinutesLog(materialData?.studyTimeM)
             }}
             >
               <ul className={`${styles.meterialDetail} ${(openPopup === `materialDetail${index}`) ? styles.active : ''}`}>

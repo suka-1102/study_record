@@ -18,6 +18,9 @@ const useStore = create((set) => ({
   minutesLog: '', 
   setMinutesLog: (time) => set({ minutesLog: time }),
 
+  // applyItemLog: '', 
+  // setApplyItemLog: (time) => set({ applyItemLog: time }),
+
 }));
 
 export default useStore;
