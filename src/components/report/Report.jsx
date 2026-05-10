@@ -111,7 +111,7 @@ const Report = () => {
             </li>
           </ul>
           <div className="chartWrapper">
-            <Bar options={options} data={data}/>;
+            <Bar options={options} data={data}/>
           </div>
         </li>
       </ul>

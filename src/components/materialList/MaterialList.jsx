@@ -18,7 +18,8 @@ const MaterialList = () => {
     
   }
   return (
-    <div className={styles.materials}>
+    <div className={styles.materials} onClick={() => setOpenPopup()}>
+      {console.log(openPopup)}
       <ul className={styles.materialList}>
         {localStorage.getItem('materialsData') &&
           JSON.parse(localStorage.getItem('materialsData')).map((item, index) => (

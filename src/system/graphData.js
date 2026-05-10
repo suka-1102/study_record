@@ -36,8 +36,6 @@ export const getGraphDatas = () => {
       const studyTimeMNumber = Number(item.studyTimeM[tIndex]);
       const MinutesToHour = studyTimeHNumber + (Math.floor((studyTimeMNumber / 60) * 100) / 100 );
       totalTime += MinutesToHour;
-
-
       
       if(ms >= oneWeekAgo && ms <= now) {
         applyItemArray.push([index, tIndex])
@@ -53,7 +51,6 @@ export const getGraphDatas = () => {
   })
 
   applyItemArray.forEach(i => {
-    console.log(i)
     const time = previousData[i[0]].time[i[1]]
     const nums = time.match(/\d+/g).map(Number);
     const date = new Date(nums[0], nums[1] - 1, nums[2], nums[3], nums[4]);
