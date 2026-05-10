@@ -34,8 +34,6 @@
     .learningProcess {
       width: 70%;
       margin: 0 auto;
-      height: 280px;
-
     }
     .recordAllTimes {
       display: flex;
@@ -43,6 +41,7 @@
       background-color: $backGroundGrayDark;
       border-radius: 10px;
       align-items: center;
+      margin-bottom: 14px;
       
 
       li {
@@ -50,7 +49,11 @@
         display: flex;
         align-items: center;
         flex-direction: column;
+        gap: 5px;
         p {
+          font-size: 12px;
+        }
+        span {
           font-size: 12px;
         }
       }
@@ -59,6 +62,9 @@
         height: 70%;
         background-color: $borderColor;
       }
+    }
+    .chartWrapper {
+      margin: 0 auto;
     }
   }
 }

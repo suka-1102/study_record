@@ -22,9 +22,12 @@ ChartJS.register(
   Legend
 );
 
-export const ChartBar = () => {
+
+const Report = () => {
   const {
-    graphDatas
+    graphDatas,
+    thisMonthTotalTime,
+    totalTime
   } = getGraphDatas()
   const options = {
     responsive: true,
@@ -53,7 +56,7 @@ export const ChartBar = () => {
 
   })
   const backgroundColors = [
-    "rgba(0, 4, 255, 0.5)",
+    "rgb(26, 30, 255)",
     "rgb(210, 255, 46)",
     "rgb(38, 255, 31)",
     "rgb(255, 43, 43)",
@@ -66,24 +69,23 @@ export const ChartBar = () => {
   ];
 
   const setDatas = []
+  let todayTotalTime = 0;
 
   graphDatas.forEach((d, index) => {
     setDatas.push({
       data: d,
       backgroundColor: backgroundColors[index],
     });
+    todayTotalTime += d[6]
   })
 
-  console.log(setDatas)
+
 
   const data = {
     labels,
     datasets: setDatas    
   };
-  return <Bar options={options} data={data} />;
-};
 
-const Report = () => {
   return (
     <div className={styles.report}>
       <h1>記録</h1>
@@ -94,21 +96,23 @@ const Report = () => {
           <ul className={styles.recordAllTimes}>
             <li>
               <p>今日</p>
-              <span></span>
+              <span>{todayTotalTime}時間</span>
             </li>
             <div className={styles.separater}></div>
             <li>
               <p>今月</p>
-              <span></span>
+              <span>{thisMonthTotalTime}時間</span>
             </li>
             <div className={styles.separater}></div>
             <li>
             
               <p>総学習時間</p>
-              <span></span>
+              <span>{totalTime}時間</span>
             </li>
           </ul>
-          <ChartBar></ChartBar>
+          <div className="chartWrapper">
+            <Bar options={options} data={data}/>;
+          </div>
         </li>
       </ul>
     </div>
