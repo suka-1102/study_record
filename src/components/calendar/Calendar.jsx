@@ -5,7 +5,10 @@ import useStore from '../../store/stateSettings'
 
 const MyCalendar = () => {
   const [value, setValue] = useState(new Date())
-  
+  const {
+    openPopup,setOpenPopup,
+    setCalendarTime
+  } = useStore()
 
   const confirmClick = () => {
     const date = new Date(value);
@@ -20,11 +23,6 @@ const MyCalendar = () => {
   
     setOpenPopup('materialContent')
   }
-  const {
-    openPopup,setOpenPopup,
-    saveIndex,
-    setCalendarTime
-  } = useStore()
 
   return (
     <div className={`${styles.calendarWrapper} ${(openPopup === 'calendar') ? styles.active : ''}`}>

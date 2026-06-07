@@ -155,7 +155,9 @@ const MaterialContent = () => {
                 type="number"
                 min={0}
                 value={hours}
-                onChange={(e) => setHours(e.target.value)}
+                onChange={(e) => 
+                  setHours(e.target.value === '' ? '' : Number(e.target.value))
+                }
                 
               />
             </div>
@@ -167,7 +169,9 @@ const MaterialContent = () => {
                 min={0}
                 max={59}
                 value={minutes}
-                onChange={(e) => setMinutes(e.target.value)}
+                onChange={(e) => 
+                  setMinutes(e.target.value === '' ? '' : Number(e.target.value))
+                }
               />
             </div>
           </div>

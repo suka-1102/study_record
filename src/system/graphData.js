@@ -16,7 +16,6 @@ export const getGraphDatas = () => {
   let thisMonthArray = [];
   const data = localStorage.getItem('materialsData');
   const previousData = data ? JSON.parse(data) : [];
-  const dataLength = previousData.length;
   const graphDatas = []
   let thisMonthTotalTime = 0;
   let totalTime = 0;

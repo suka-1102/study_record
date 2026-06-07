@@ -1,4 +1,3 @@
-import { useState } from "react";
 import styles from './MaterialList.module.scss'
 import useStore from '../../store/stateSettings'
 
@@ -7,34 +6,28 @@ const MaterialList = () => {
   const {
     openPopup, setOpenPopup,
     saveIndex, setSaveIndex,
-    setCalendarTime, setHoursLog, setMinutesLog
+    deleteMaterialState, materials
   } = useStore()
   const deleteClick = () => {
-
-    let items = JSON.parse(localStorage.getItem('materialsData')) || [];
-    items.splice(saveIndex, 1);
-    localStorage.setItem('materialsData', JSON.stringify(items));
+    deleteMaterialState(saveIndex)
     setOpenPopup(``)
     
   }
   return (
-    <div className={styles.materials} onClick={() => setOpenPopup()}>
-      {console.log(openPopup)}
+    <div className={styles.materials}>
       <ul className={styles.materialList}>
-        {localStorage.getItem('materialsData') &&
-          JSON.parse(localStorage.getItem('materialsData')).map((item, index) => (
+        {materials.map((item, index) => (
             <li key={index} onClick={() => {
               setOpenPopup(`materialContent`)
               setSaveIndex(index);
-              // const materialDatas = JSON.parse(localStorage.getItem('materialsData')) || [];
-              // const materialData = materialDatas[index]
-              // setCalendarTime(materialData?.time)
-              // setHoursLog(materialData?.studyTimeH)
-              // setMinutesLog(materialData?.studyTimeM)
             }}
             >
               <ul className={`${styles.meterialDetail} ${(openPopup === `materialDetail${index}`) ? styles.active : ''}`}>
-                <li className={styles.edit}>編集</li>
+                <li className={styles.back} onClick={(e) => {
+                  e.stopPropagation()
+                  setOpenPopup(``)
+                }}>戻る</li>
+                {/* <li className={styles.edit}>編集</li> */}
                 <li className={styles.delete} onClick={(e) => {
                   e.stopPropagation()
                   setOpenPopup(`detailPopup`)

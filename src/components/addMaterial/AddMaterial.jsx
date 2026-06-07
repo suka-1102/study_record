@@ -10,18 +10,16 @@ const AddMaterial = () => {
 
   const saveClick = () => {
     if (!name.trim()) return;
-    const data = localStorage.getItem('materialsData');
-    const previousData = data ? JSON.parse(data) : [];
-    const addData = {name: name, status:status, time: '', studyTimeH: '',studyTimeM: '', memo: ''} 
-    previousData.push(addData)
-    localStorage.setItem('materialsData',JSON.stringify(previousData))
+    const addData = {name: name, status:status, time: [], studyTimeH: [],studyTimeM: [], memo: ''} 
+    addMaterialState(addData)
     setName("")
     setStatus("")
     setOpenPopup('')
   }
 
   const {
-    openPopup,setOpenPopup
+    openPopup,setOpenPopup,
+    addMaterialState
   } = useStore()
 
 
