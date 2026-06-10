@@ -1,5 +1,10 @@
-export const getGraphDatas = () => {
+const minutesToHour = (hours, minutes) => {
+  const hoursNumber = Number(hours);
+  const minutesNumber = Number(minutes);
+  return hoursNumber + (Math.floor((minutesNumber / 60) * 100) / 100 );
+};
 
+const buildGraphData = (previousData, applyItemArray) => {
   const today = new Date();
   today.setHours(0, 0, 0, 0);
   const dayStart = today.getTime();
@@ -10,55 +15,21 @@ export const getGraphDatas = () => {
   const day3 = day0 - 3 * oneDayMs;
   const day4 = day0 - 4 * oneDayMs;
   const day5 = day0 - 5 * oneDayMs;
-  const day6 = day0 - 6 * oneDayMs;  
+  const day6 = day0 - 6 * oneDayMs;
 
-  let applyItemArray = []; 
-  let thisMonthArray = [];
-  const data = localStorage.getItem('materialsData');
-  const previousData = data ? JSON.parse(data) : [];
   const graphDatas = []
-  let thisMonthTotalTime = 0;
-  let totalTime = 0;
-  previousData.forEach((item, index) => {
-    const haveTimeData = item.time
-    if (!haveTimeData) return;
-    
-    haveTimeData.forEach((t, tIndex) => {
-      const nums = t.match(/\d+/g).map(Number);
-      const date = new Date(nums[0], nums[1] - 1, nums[2], nums[3], nums[4]);
-      const ms = date.getTime();
-      
-      const now = Date.now();
-      const oneWeekAgo = now - 7 * 24 * 60 * 60 * 1000;
-      const startOfMonth = new Date(today.getFullYear(), today.getMonth(), 1).getTime();
-      const studyTimeHNumber = Number(item.studyTimeH[tIndex]);
-      const studyTimeMNumber = Number(item.studyTimeM[tIndex]);
-      const MinutesToHour = studyTimeHNumber + (Math.floor((studyTimeMNumber / 60) * 100) / 100 );
-      totalTime += MinutesToHour;
-      
-      if(ms >= oneWeekAgo && ms <= now) {
-        applyItemArray.push([index, tIndex])
-      }
-      if(ms >= startOfMonth && ms <= now) {
-        thisMonthArray.push([index, tIndex])
-      }
-    })
-  });
-  
   previousData.forEach((data, dataIndex) => {
     graphDatas[dataIndex] = [0,0,0,0,0,0,0]
   })
 
   applyItemArray.forEach(i => {
-    const time = previousData[i[0]].time[i[1]]
-    const nums = time.match(/\d+/g).map(Number);
-    const date = new Date(nums[0], nums[1] - 1, nums[2], nums[3], nums[4]);
-    const ms = date.getTime();
-    const studyTimeHNumber = Number(previousData[i[0]].studyTimeH[i[1]]);
-    const studyTimeMNumber = Number(previousData[i[0]].studyTimeM[i[1]]);
+    const time = previousData[i[0]].records.date[i[1]]
+    const ms = new Date(time).getTime();
+    const MinutesToHour = minutesToHour(
+      previousData[i[0]].records.hours[i[1]],
+      previousData[i[0]].records.minutes[i[1]]
+    );
 
-    const MinutesToHour = studyTimeHNumber + (Math.floor((studyTimeMNumber / 60) * 100) / 100 );
-    
     if (ms >= day0 && ms < day0 + oneDayMs) {
       graphDatas[i[0]][6] += MinutesToHour;
     } else if (ms >= day1 && ms < day0) {
@@ -76,22 +47,64 @@ export const getGraphDatas = () => {
     }
   })
 
+  return graphDatas;
+};
+
+const calcThisMonthTotal = (previousData, thisMonthArray) => {
+  let thisMonthTotalTime = 0;
+
   thisMonthArray.forEach(i => {
-    const time = previousData[i[0]].time[i[1]]
-    const nums = time.match(/\d+/g).map(Number);
-    const date = new Date(nums[0], nums[1] - 1, nums[2], nums[3], nums[4]);
-    const ms = date.getTime();
-    const studyTimeHNumber = Number(previousData[i[0]].studyTimeH[i[1]]);
-    const studyTimeMNumber = Number(previousData[i[0]].studyTimeM[i[1]]);
-
-    // studyTimeMをHに変換して一つの時間にする。
-    const MinutesToHour = studyTimeHNumber + (Math.floor((studyTimeMNumber / 60) * 100) / 100 );
-
+    const time = previousData[i[0]].records.date[i[1]]
+    const ms = new Date(time).getTime();
+    const MinutesToHour = minutesToHour(
+      previousData[i[0]].records.hours[i[1]],
+      previousData[i[0]].records.minutes[i[1]]
+    );
+    
     thisMonthTotalTime += MinutesToHour
 
-    
-
   })
+
+  return thisMonthTotalTime;
+};
+
+export const getGraphDatas = () => {
+
+  const today = new Date();
+  today.setHours(0, 0, 0, 0);
+
+  let applyItemArray = [];
+  let thisMonthArray = [];
+  const data = localStorage.getItem('materialsData');
+  const previousData = data ? JSON.parse(data) : [];
+  let totalTime = 0;
+  previousData.forEach((item, index) => {
+    const haveTimeData = item.records?.date
+    if (!haveTimeData) return;
+
+    haveTimeData.forEach((t, tIndex) => {
+      const ms = new Date(t).getTime();
+      const now = Date.now();
+      const oneWeekAgo = now - 7 * 24 * 60 * 60 * 1000;
+      const startOfMonth = new Date(today.getFullYear(), today.getMonth(), 1).getTime();
+      const MinutesToHour = minutesToHour(
+        item.records.hours[tIndex],
+        item.records.minutes[tIndex]
+      );
+      totalTime += MinutesToHour;
+
+      if(ms >= oneWeekAgo && ms <= now) {
+        applyItemArray.push([index, tIndex])
+      }
+      if(ms >= startOfMonth && ms <= now) {
+        thisMonthArray.push([index, tIndex])
+      }
+    })
+  });
+
+  const graphDatas = buildGraphData(previousData, applyItemArray);
+  const thisMonthTotalTime = calcThisMonthTotal(previousData, thisMonthArray);
+
   return {
     graphDatas,
     thisMonthTotalTime,

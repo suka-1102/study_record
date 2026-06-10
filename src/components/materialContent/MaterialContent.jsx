@@ -58,12 +58,15 @@ const MaterialContent = () => {
 
     const upDatedData = previousData.map((item, index) => {
       if (index === saveIndex) {
-        return { ...item, 
-          time: [...(item.time || []), calendarTime],
-          studyTimeH: [...(item.studyTimeH || []), hoursLog],
-          studyTimeM: [...(item.studyTimeM || []), minutesLog],
+        return {
+          ...item,
+          records: {
+            date: [...(item.records?.date || []), calendarTime],
+            hours: [...(item.records?.hours || []), hoursLog],
+            minutes: [...(item.records?.minutes || []), minutesLog],
+          },
           memo: memo,
-        }; 
+        };
       }
       return item;
     });
@@ -79,16 +82,19 @@ const MaterialContent = () => {
 
   const nowBtnClick = (e) => {
     e.stopPropagation()
-    const date = new Date();
 
-    const year = date.getFullYear();
-    const month = String(date.getMonth() + 1).padStart(2, '0');
-    const day = String(date.getDate()).padStart(2, '0');
-    const hours = String(date.getHours()).padStart(2, '0');
-    const minutes = String(date.getMinutes()).padStart(2, '0');
+    setCalendarTime(new Date().toISOString())
+  }
 
-    const result = `${year}年${month}月${day}日 ${hours}:${minutes}`;
-    setCalendarTime(result)
+  const formatDateJa = (time) => {
+    if (!time) return ''
+    const d = new Date(time)
+    const year = d.getFullYear()
+    const month = String(d.getMonth() + 1).padStart(2, '0')
+    const day = String(d.getDate()).padStart(2, '0')
+    const hours = String(d.getHours()).padStart(2, '0')
+    const minutes = String(d.getMinutes()).padStart(2, '0')
+    return `${year}年${month}月${day}日 ${hours}:${minutes}`
   }
 
   return (
@@ -117,7 +123,7 @@ const MaterialContent = () => {
         <div className={styles.fieldRow} onClick={() => setOpenPopup(`calendar`)}>
           <span className={styles.fieldIcon}></span>
           <span className={styles.fieldValue}>
-            {calendarTime}
+            {formatDateJa(calendarTime)}
           </span>
           <button className={styles.nowBtn} onClick={nowBtnClick}>現時刻</button>
         </div>

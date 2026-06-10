@@ -18,9 +18,6 @@ const useStore = create((set) => ({
   minutesLog: '', 
   setMinutesLog: (time) => set({ minutesLog: time }),
 
-  // applyItemLog: '', 
-  // setApplyItemLog: (time) => set({ applyItemLog: time }),
-
   materials: JSON.parse(localStorage.getItem('materialsData')) || [],
 
   addMaterialState: (material) => set((state) => {

@@ -10,7 +10,16 @@ const AddMaterial = () => {
 
   const saveClick = () => {
     if (!name.trim()) return;
-    const addData = {name: name, status:status, time: [], studyTimeH: [],studyTimeM: [], memo: ''} 
+    const addData = {
+      name: name, 
+      status:status, 
+      records: {
+        date: [], 
+        hours: [],
+        minute: [],
+      },
+      memo: ''
+    } 
     addMaterialState(addData)
     setName('')
     setStatus('')
