@@ -1,11 +1,11 @@
-import Sidebar from "./components/sidebar/Sidebar"
-import Header from "./components/header/Header"
-import MaterialList from "./components/materialList/MaterialList"
-import AddMaterial from "./components/addMaterial/AddMaterial"
-import MaterialContent from "./components/materialContent/MaterialContent"
-import MyCalendar from "./components/calendar/Calendar"
+import Sidebar from './components/sidebar/Sidebar'
+import Header from './components/header/Header'
+import MaterialList from './components/materialList/MaterialList'
+import AddMaterial from './components/addMaterial/AddMaterial'
+import MaterialContent from './components/materialContent/MaterialContent'
+import MyCalendar from './components/calendar/Calendar'
 import { BrowserRouter, Routes, Route } from 'react-router-dom'
-import Report from "./components/report/Report"
+import Report from './components/report/Report'
 const App = () => {
   
   return (
@@ -13,7 +13,7 @@ const App = () => {
       <Header />
       <Sidebar />
       <Routes>
-        <Route path="/" element={
+        <Route path='/' element={
           <>
             <MaterialList />
             <AddMaterial />
@@ -21,11 +21,10 @@ const App = () => {
             <MyCalendar />
           </>
         } />
-        <Route path="/report" element={<Report />} />
+        <Route path='/report' element={<Report />} />
       </Routes>
     </BrowserRouter>
   )
 }
 
 export default App
-

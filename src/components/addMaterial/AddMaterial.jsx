@@ -1,10 +1,10 @@
-import { useState } from "react";
+import { useState } from 'react';
 import styles from './AddMaterial.module.scss'
-import useStore from "../../store/stateSettings";
+import useStore from '../../store/stateSettings';
 
 const AddMaterial = () => {
-  const [name, setName] = useState("");
-  const [status, setStatus] = useState("")
+  const [name, setName] = useState('');
+  const [status, setStatus] = useState('')
   const [statusModal, setStatusModal] = useState(false)
   const maxLength = 128;
 
@@ -12,8 +12,8 @@ const AddMaterial = () => {
     if (!name.trim()) return;
     const addData = {name: name, status:status, time: [], studyTimeH: [],studyTimeM: [], memo: ''} 
     addMaterialState(addData)
-    setName("")
-    setStatus("")
+    setName('')
+    setStatus('')
     setOpenPopup('')
   }
 
@@ -28,8 +28,8 @@ const AddMaterial = () => {
       <div className={styles.top}>
         <button className={styles.closeButton} onClick={() => {
           setOpenPopup('')
-          setStatus("")
-          setName("")
+          setStatus('')
+          setName('')
         }}
         >
           ×
@@ -42,8 +42,8 @@ const AddMaterial = () => {
       <div className={styles.contentsWrapper}>
         <div className={styles.imageSection}>
           {/* <img
-            src="public/material.png"
-            alt="教材"
+            src='public/material.png'
+            alt='教材'
             className={styles.bookImage}
           /> */}
           <div className={styles.bookCover}>
@@ -52,8 +52,8 @@ const AddMaterial = () => {
           <div className={styles.nameArea}>
             <label className={styles.nameLabel}>教材名</label>
             <input
-              type="text"
-              placeholder="教材名"
+              type='text'
+              placeholder='教材名'
               value={name}
               maxLength={maxLength}
               onChange={(e) => {
@@ -73,7 +73,7 @@ const AddMaterial = () => {
         <div className={styles.row} onClick={() => setStatusModal(true)}>
           <span className={styles.rowLabel}>ステータス</span>
           <span className={styles.rowValue}>
-            {status === "learning" ? "学習中" : status === "completed" ? "完了" : status === "standBy" ? "スタンバイ" : ""}
+            {status === 'learning' ? '学習中' : status === 'completed' ? '完了' : status === 'standBy' ? 'スタンバイ' : ''}
           </span>
         </div>
         <div className={`${styles.mask} ${(statusModal === true) ? styles.active : ''}`}></div>
@@ -86,14 +86,14 @@ const AddMaterial = () => {
                   <li>
                     <label>
                       <input
-                        type="radio"
-                        name="status"
-                        value="learning"
-                        checked={status === "learning"}
+                        type='radio'
+                        name='status'
+                        value='learning'
+                        checked={status === 'learning'}
                         onChange={() => 
                         {
                           setStatusModal(false)
-                          setStatus("learning")
+                          setStatus('learning')
 
                         }}
                       />
@@ -103,14 +103,14 @@ const AddMaterial = () => {
                   <li>
                     <label>
                       <input
-                        type="radio"
-                        name="status"
-                        value="completed"
-                        checked={status === "completed"}
+                        type='radio'
+                        name='status'
+                        value='completed'
+                        checked={status === 'completed'}
                         onChange={() => 
                         {
                           setStatusModal(false)
-                          setStatus("completed")
+                          setStatus('completed')
                         }}
                       />
                       完了
@@ -119,14 +119,14 @@ const AddMaterial = () => {
                   <li>
                     <label>
                       <input
-                        type="radio"
-                        name="status"
-                        value="standBy"
-                        checked={status === "standBy"}
+                        type='radio'
+                        name='status'
+                        value='standBy'
+                        checked={status === 'standBy'}
                         onChange={() => 
                         {
                           setStatusModal(false)
-                          setStatus("standBy")
+                          setStatus('standBy')
                         }}
                       />
                       スタンバイ

@@ -1,8 +1,8 @@
 import styles from './Report.module.scss';
-import { Bar } from "react-chartjs-2";
+import { Bar } from 'react-chartjs-2';
 import { getGraphDatas } from '../../system/graphData';
 
-import React from "react";
+import React from 'react';
 import {
   Chart as ChartJS,
   CategoryScale,
@@ -11,7 +11,7 @@ import {
   Title,
   Tooltip,
   Legend
-} from "chart.js";
+} from 'chart.js';
 
 ChartJS.register(
   CategoryScale,
@@ -49,23 +49,23 @@ const Report = () => {
     
     const month = date.getMonth() + 1;
     const day = date.getDate();
-    const weekdays = ["日", "月", "火", "水", "木", "金", "土"];
+    const weekdays = ['日', '月', '火', '水', '木', '金', '土'];
     const weekday = weekdays[date.getDay()];
 
     return `${month}/${day}\n${weekday}`;
 
   })
   const backgroundColors = [
-    "rgb(26, 30, 255)",
-    "rgb(210, 255, 46)",
-    "rgb(38, 255, 31)",
-    "rgb(255, 43, 43)",
-    "rgb(153, 102, 255)",
-    "rgb(255, 207, 86)",
-    "rgb(75, 192, 192)",
-    "rgb(255, 168, 81)",
-    "rgb(199, 199, 199)",
-    "rgb(83, 103, 255)",
+    'rgb(26, 30, 255)',
+    'rgb(210, 255, 46)',
+    'rgb(38, 255, 31)',
+    'rgb(255, 43, 43)',
+    'rgb(153, 102, 255)',
+    'rgb(255, 207, 86)',
+    'rgb(75, 192, 192)',
+    'rgb(255, 168, 81)',
+    'rgb(199, 199, 199)',
+    'rgb(83, 103, 255)',
   ];
 
   const setDatas = []
@@ -110,7 +110,7 @@ const Report = () => {
               <span>{totalTime}時間</span>
             </li>
           </ul>
-          <div className="chartWrapper">
+          <div className='chartWrapper'>
             <Bar options={options} data={data}/>
           </div>
         </li>

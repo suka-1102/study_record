@@ -32,7 +32,7 @@ const MyCalendar = () => {
         <Calendar
           value={value}
           onClickDay={(e) => setValue(e)}
-          locale="ja-JP"
+          locale='ja-JP'
           formatYear={(locale, date) => `${date.getFullYear()}年`}
           formatMonthYear={(locale, date) =>
             `${date.getFullYear()}年${date.getMonth() + 1}月`
@@ -42,8 +42,8 @@ const MyCalendar = () => {
           }
           
           formatDay={(locale, date) => date.getDate()}
-          prevLabel="‹"
-          nextLabel="›"
+          prevLabel='‹'
+          nextLabel='›'
           prev2Label={null}
           next2Label={null}
         />

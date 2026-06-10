@@ -14,7 +14,7 @@ const MaterialContent = () => {
   const [studyTimeLog, setStudyTimeLog] = useState(false);
   const [minutes, setMinutes] = useState(0)
   const [hours, setHours] = useState(0)
-  const [memo, setMemo] = useState()
+  const [memo, setMemo] = useState('')
   useEffect(() => {
     const data = JSON.parse(localStorage.getItem('materialsData')) || [];
     const item = data[saveIndex];
@@ -49,7 +49,10 @@ const MaterialContent = () => {
   }
 
   const saveClick = () => {
-    if (!calendarTime || hours == null|| minutes == null || (hours == 0 && minutes == 0)) return;
+    if (!calendarTime || hours == null|| minutes == null || (hours == 0 && minutes == 0)) {
+      alert('時刻と学習時間を記録してください')
+      return
+    }
     const data = localStorage.getItem('materialsData');
     const previousData = data ? JSON.parse(data) : [];
 
@@ -137,8 +140,8 @@ const MaterialContent = () => {
         <div className={styles.memoArea}>
           <textarea
             className={styles.memoInput}
-            placeholder="要点・ひとことメモ"
-            value={memo}
+            placeholder='要点・ひとことメモ'
+            value={memo ?? ''}
             onChange={(e) => setMemo(e.target.value)}
           />
         </div>
@@ -152,7 +155,7 @@ const MaterialContent = () => {
               <label className={styles.label}>時間</label>
               <input
                 className={styles.input}
-                type="number"
+                type='number'
                 min={0}
                 value={hours}
                 onChange={(e) => 
@@ -165,7 +168,7 @@ const MaterialContent = () => {
               <label className={styles.label}>分</label>
               <input
                 className={styles.input}
-                type="number"
+                type='number'
                 min={0}
                 max={59}
                 value={minutes}

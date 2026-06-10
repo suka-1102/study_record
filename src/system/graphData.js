@@ -57,11 +57,9 @@ export const getGraphDatas = () => {
     const studyTimeHNumber = Number(previousData[i[0]].studyTimeH[i[1]]);
     const studyTimeMNumber = Number(previousData[i[0]].studyTimeM[i[1]]);
 
-    // studyTimeMをHに変換して一つの時間にする。
     const MinutesToHour = studyTimeHNumber + (Math.floor((studyTimeMNumber / 60) * 100) / 100 );
     
     if (ms >= day0 && ms < day0 + oneDayMs) {
-    // i[0]番目のデータ(MinutesToHour)をgraphDatas[i[0]]の6番目に入れる。同じのがあったらプラスしていく
       graphDatas[i[0]][6] += MinutesToHour;
     } else if (ms >= day1 && ms < day0) {
       graphDatas[i[0]][5] += MinutesToHour;
