@@ -2,19 +2,18 @@ import styles from './MaterialContent.module.scss'
 import useStore from '../../store/stateSettings';
 import { useState, useEffect } from 'react';
 
-
-
 const MaterialContent = () => {
   const {
     openPopup, setOpenPopup,
     saveIndex,
-    calendarTime, setCalendarTime, hoursLog, minutesLog,
-    setHoursLog, setMinutesLog
+    calendarTime, setCalendarTime,
+    setMaterials,
   } = useStore()
   const [studyTimeLog, setStudyTimeLog] = useState(false);
   const [minutes, setMinutes] = useState(0)
   const [hours, setHours] = useState(0)
   const [memo, setMemo] = useState('')
+
   useEffect(() => {
     const data = JSON.parse(localStorage.getItem('materialsData')) || [];
     const item = data[saveIndex];
@@ -25,34 +24,28 @@ const MaterialContent = () => {
     }
   }, [saveIndex])
 
-  
-
   const materialDatas = JSON.parse(localStorage.getItem('materialsData')) || [];
   const materialData = materialDatas[saveIndex]
 
-
-
   const studyTimeSet = () => {
-    if (hours == null|| minutes == null || (hours == 0 && minutes == 0)) return;
-    if(hours == 0) {
-      setHoursLog(0)
-    } else {
-      setHoursLog(hours)
+    const h = Number(hours) || 0
+    const m = Number(minutes) || 0
+    if (h < 0 || h > 24 || m < 0 || m > 59) {
+      alert('時間は0～23、分は0〜59で入力してください')
+      return
     }
-    if(minutes == 0) {
-      setMinutesLog(0)
-    } else {
-      setMinutesLog(minutes)
-    }
-
     setStudyTimeLog(false)
   }
 
-  const saveClick = () => {
-    if (!calendarTime || hours == null|| minutes == null || (hours == 0 && minutes == 0)) {
+  const saveRecord = () => {
+    const hoursNum = Number(hours) || 0
+    const minutesNum = Number(minutes) || 0
+
+    if (!calendarTime || (hoursNum === 0 && minutesNum === 0)) {
       alert('時刻と学習時間を記録してください')
       return
     }
+
     const data = localStorage.getItem('materialsData');
     const previousData = data ? JSON.parse(data) : [];
 
@@ -62,27 +55,24 @@ const MaterialContent = () => {
           ...item,
           records: {
             date: [...(item.records?.date || []), calendarTime],
-            hours: [...(item.records?.hours || []), hoursLog],
-            minutes: [...(item.records?.minutes || []), minutesLog],
+            hours: [...(item.records?.hours || []), hoursNum],
+            minutes: [...(item.records?.minutes || []), minutesNum],
           },
           memo: memo,
         };
       }
       return item;
     });
-    localStorage.setItem('materialsData', JSON.stringify(upDatedData));  
+
+    setMaterials(upDatedData)
     setCalendarTime()
-    setHoursLog()
-    setMinutesLog()
     setHours(0)
     setMinutes(0)
-    
     setOpenPopup('')
   }
 
   const nowBtnClick = (e) => {
     e.stopPropagation()
-
     setCalendarTime(new Date().toISOString())
   }
 
@@ -104,10 +94,9 @@ const MaterialContent = () => {
             ×
           </button>
           <h2 className={styles.title}>記録の入力</h2>
-          <button className={styles.saveBtn} onClick={saveClick}>記録</button>
+          <button className={styles.saveBtn} onClick={saveRecord}>記録</button>
       </div>
       <div className={styles.panel}>
-
 
         <div className={styles.divider} />
 
@@ -133,8 +122,8 @@ const MaterialContent = () => {
         <div className={`${styles.fieldRow} ${styles.studyTimeButton}`} onClick={() => setStudyTimeLog(true)}>
           <span className={styles.fieldIcon}></span>
           <span className={styles.fieldPlaceholder}>
-            {hoursLog > 0 ||minutesLog > 0 ? (
-              <div>{hoursLog}時間{minutesLog}分</div>
+            {hours > 0 || minutes > 0 ? (
+              <div>{hours || 0}時間{minutes || 0}分</div>
             ) : (
               <div>学習時間</div>
             )}
@@ -152,43 +141,47 @@ const MaterialContent = () => {
           />
         </div>
       </div>
+
       <div className={`${styles.mask} ${(studyTimeLog === true) ? styles.active : ''}`}></div>
-        <div className={`${styles.studyTimePopup} ${(studyTimeLog === true) ? styles.active : ''}`}>
-          <h2 className={styles.title}>学習時間</h2>
+      <div className={`${styles.studyTimePopup} ${(studyTimeLog === true) ? styles.active : ''}`}>
+        <h2 className={styles.title}>学習時間</h2>
 
-          <div className={styles.inputRow}>
-            <div className={styles.inputGroup}>
-              <label className={styles.label}>時間</label>
-              <input
-                className={styles.input}
-                type='number'
-                min={0}
-                value={hours}
-                onChange={(e) => 
-                  setHours(e.target.value === '' ? '' : Number(e.target.value))
-                }
-                
-              />
-            </div>
-            <div className={styles.inputGroup}>
-              <label className={styles.label}>分</label>
-              <input
-                className={styles.input}
-                type='number'
-                min={0}
-                max={59}
-                value={minutes}
-                onChange={(e) => 
-                  setMinutes(e.target.value === '' ? '' : Number(e.target.value))
-                }
-              />
-            </div>
+        <div className={styles.inputRow}>
+          <div className={styles.inputGroup}>
+            <label className={styles.label}>時間</label>
+            <input
+              className={styles.input}
+              type='number'
+              min={0}
+              value={hours}
+              onChange={(e) =>
+                setHours(e.target.value === '' ? '' : Number(e.target.value))
+              }
+            />
           </div>
+          <div className={styles.inputGroup}>
+            <label className={styles.label}>分</label>
+            <input
+              className={styles.input}
+              type='number'
+              min={0}
+              max={59}
+              value={minutes}
+              onChange={(e) =>
+                setMinutes(e.target.value === '' ? '' : Number(e.target.value))
+              }
+            />
+          </div>
+        </div>
 
-          <div className={styles.buttonWrapper}>
-            <button className={styles.cancel} onClick={() => setStudyTimeLog(false)}>キャンセル</button>
-            <button className={styles.proceed} onClick={studyTimeSet}>設定</button>
-          </div>
+        <div className={styles.buttonWrapper}>
+          <button className={styles.cancel} onClick={() => {
+            setStudyTimeLog(false),
+            setHours(0),
+            setMinutes(0)
+          }}>キャンセル</button>
+          <button className={styles.proceed} onClick={studyTimeSet}>設定</button>
+        </div>
       </div>
     </div>
   );

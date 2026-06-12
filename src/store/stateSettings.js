@@ -12,12 +12,6 @@ const useStore = create((set) => ({
   calendarTime: '', 
   setCalendarTime: (time) => set({ calendarTime: time }),
 
-  hoursLog: '', 
-  setHoursLog: (time) => set({ hoursLog: time }),
-
-  minutesLog: '', 
-  setMinutesLog: (time) => set({ minutesLog: time }),
-
   materials: JSON.parse(localStorage.getItem('materialsData')) || [],
 
   addMaterialState: (material) => set((state) => {
@@ -25,6 +19,14 @@ const useStore = create((set) => ({
     localStorage.setItem('materialsData', JSON.stringify(next))
     return { materials: next }
   }),
+  
+  setMaterials: (materials) => set(() => {
+    localStorage.setItem('materialsData', JSON.stringify(materials))
+    return { materials }
+  }),
+
+  
+  
 
   deleteMaterialState: (index) => set((state) => {
     const next = state.materials.filter((_, i) => i !== index)

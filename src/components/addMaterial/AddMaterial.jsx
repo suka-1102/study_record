@@ -8,7 +8,7 @@ const AddMaterial = () => {
   const [statusModal, setStatusModal] = useState(false)
   const maxLength = 128;
 
-  const saveClick = () => {
+  const saveRecord = () => {
     if (!name.trim()) return;
     const addData = {
       name: name, 
@@ -16,7 +16,7 @@ const AddMaterial = () => {
       records: {
         date: [], 
         hours: [],
-        minute: [],
+        minutes: [],
       },
       memo: ''
     } 
@@ -25,6 +25,19 @@ const AddMaterial = () => {
     setStatus('')
     setOpenPopup('')
   }
+
+  const getStatus = (status) => {
+    switch (status) {
+      case 'learning':
+        return '学習中';
+      case 'completed':
+        return '完了';
+      case 'standBy':
+        return 'スタンバイ';
+      default:
+        return '';
+    }
+  };
 
   const {
     openPopup,setOpenPopup,
@@ -44,7 +57,7 @@ const AddMaterial = () => {
           ×
         </button>
         <span className={styles.title}>教材の追加</span>
-        <button className={styles.saveButton} onClick={saveClick}>
+        <button className={styles.saveButton} onClick={saveRecord}>
           保存
         </button>
       </div>
@@ -82,7 +95,7 @@ const AddMaterial = () => {
         <div className={styles.row} onClick={() => setStatusModal(true)}>
           <span className={styles.rowLabel}>ステータス</span>
           <span className={styles.rowValue}>
-            {status === 'learning' ? '学習中' : status === 'completed' ? '完了' : status === 'standBy' ? 'スタンバイ' : ''}
+            {getStatus(status)}
           </span>
         </div>
         <div className={`${styles.mask} ${(statusModal === true) ? styles.active : ''}`}></div>
