@@ -4,14 +4,14 @@ import styles from './Calendar.module.scss'
 import useStore from '../../store/stateSettings'
 
 const MyCalendar = () => {
-  const [value, setValue] = useState(new Date())
+  const [calendarDayValue, setCalendarDayValue] = useState(new Date())
   const {
     openPopup,setOpenPopup,
     setCalendarTime
   } = useStore()
 
   const confirmClick = () => {
-    const date = new Date(value);
+    const date = new Date(calendarDayValue);
     setCalendarTime(date.toISOString())
   
     setOpenPopup('materialContent')
@@ -23,8 +23,8 @@ const MyCalendar = () => {
         <p className={styles.calendarTitle}>日付</p>
 
         <Calendar
-          value={value}
-          onClickDay={(e) => setValue(e)}
+          value={calendarDayValue}
+          onClickDay={(e) => setCalendarDayValue(e)}
           locale='ja-JP'
           formatYear={(locale, date) => `${date.getFullYear()}年`}
           formatMonthYear={(locale, date) =>
@@ -41,7 +41,7 @@ const MyCalendar = () => {
           next2Label={null}
         />
 
-        <button className={styles.todayLink} onClick={() => setValue(new Date())}>
+        <button className={styles.todayLink} onClick={() => setCalendarDayValue(new Date())}>
           今日の日付を設定
         </button>
 
