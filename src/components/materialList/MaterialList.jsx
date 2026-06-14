@@ -30,6 +30,7 @@ const MaterialList = () => {
                 onClick={() => {
                   setOpenPopup(`materialContent`)
                   setSaveItemId(item.id)
+                  setStatus(item.status)
                 }}
               >
                 <div className={styles.bookCover}>
@@ -52,6 +53,14 @@ const MaterialList = () => {
                 <li>
                   <button type="button" className={styles.back} onClick={() => setOpenPopup(``)}>
                     戻る
+                  </button>
+                </li>
+                <li>
+                  <button type="button" className={styles.edit} onClick={() => {
+                    setOpenPopup(`materialEdit`),
+                    setSaveItemId(item.id)
+                  }}>
+                    編集
                   </button>
                 </li>
                 <li>

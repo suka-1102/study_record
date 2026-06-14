@@ -3,7 +3,6 @@ import { create } from "zustand";
 
 const useStore = create((set) => ({
 
-    // const [status, setStatus] = useState('learning')
   status: 'learning', 
   setStatus: (s) => set({ status: s }),
   
