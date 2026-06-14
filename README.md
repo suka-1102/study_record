@@ -38,3 +38,8 @@ If you are developing a production application, we recommend using TypeScript wi
 10.5 見た目を整える。
 
 11. 棒グラフをつくり、日によって変わるようにし、タスクによって色が変わるようになる。
+12. 初期状態ではステータスに学習中を入れる。saveIndexをidに変換して管理する。ステータスによって教材の表示を無くす。
+
+13. 編集ボタンの機能追加
+14. カレンダーのデザインの崩れを修正
+

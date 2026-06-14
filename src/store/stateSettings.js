@@ -3,11 +3,16 @@ import { create } from "zustand";
 
 const useStore = create((set) => ({
 
+    // const [status, setStatus] = useState('learning')
+  status: 'learning', 
+  setStatus: (s) => set({ status: s }),
+  
+
   openPopup: '', 
   setOpenPopup: (status) => set({ openPopup: status }),
 
-  saveIndex: '', 
-  setSaveIndex: (index) => set({ saveIndex: index }),
+  saveItemId: '', 
+  setSaveItemId: (index) => set({ saveItemId: index }),
 
   calendarTime: '', 
   setCalendarTime: (time) => set({ calendarTime: time }),
@@ -28,8 +33,8 @@ const useStore = create((set) => ({
   
   
 
-  deleteMaterialState: (index) => set((state) => {
-    const next = state.materials.filter((_, i) => i !== index)
+  deleteMaterialState: (id) => set((state) => {
+    const next = state.materials.filter((item) => item.id !== id)
     localStorage.setItem('materialsData', JSON.stringify(next))
     return { materials: next }
   }),

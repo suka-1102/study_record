@@ -4,15 +4,21 @@ import useStore from '../../store/stateSettings';
 
 const AddMaterial = () => {
   const [name, setName] = useState('');
-  const [status, setStatus] = useState('')
   const [statusModal, setStatusModal] = useState(false)
   const maxLength = 128;
+
+  const {
+    openPopup, setOpenPopup,
+    addMaterialState,
+    status, setStatus
+  } = useStore()
 
   const saveRecord = () => {
     if (!name.trim()) return;
     const addData = {
       name: name, 
       status:status, 
+      id: Date.now(),
       records: {
         date: [], 
         hours: [],
@@ -38,11 +44,6 @@ const AddMaterial = () => {
         return '';
     }
   };
-
-  const {
-    openPopup,setOpenPopup,
-    addMaterialState
-  } = useStore()
 
 
   return (

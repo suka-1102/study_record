@@ -4,29 +4,32 @@ import useStore from '../../store/stateSettings'
 const MaterialList = () => {
   const {
     openPopup, setOpenPopup,
-    saveIndex, setSaveIndex,
-    deleteMaterialState, materials
+    saveItemId, setSaveItemId,
+    deleteMaterialState, materials,
+    setStatus
   } = useStore()
 
   const deleteClick = () => {
-    deleteMaterialState(saveIndex)
+    deleteMaterialState(saveItemId)
     setOpenPopup(``)
   }
+  
+  const displayMaterials = materials.filter((item) => item.status === 'learning')
 
   return (
     <div className={styles.materials}>
       <ul className={styles.materialList}>
-        {materials.map((item, index) => {
-          const isMenuOpen = openPopup === `materialDetail${index}`
+        {displayMaterials.map((item) => {
+          const isMenuOpen = openPopup === `materialDetail${item.id}`
 
           return (
-            <li key={index} className={styles.materialItem}>
+            <li key={item.id} className={styles.materialItem}>
               <button
                 type="button"
                 className={styles.openMaterial}
                 onClick={() => {
                   setOpenPopup(`materialContent`)
-                  setSaveIndex(index)
+                  setSaveItemId(item.id)
                 }}
               >
                 <div className={styles.bookCover}>
@@ -40,8 +43,8 @@ const MaterialList = () => {
                 className={`fa-solid fa-ellipsis ${styles.menuToggle}`}
                 aria-label="詳細メニュー"
                 onClick={() => {
-                  setOpenPopup(isMenuOpen ? `` : `materialDetail${index}`)
-                  setSaveIndex(index)
+                  setOpenPopup(isMenuOpen ? `` : `materialDetail${item.id}`)
+                  setSaveItemId(item.id)
                 }}
               />
 
@@ -71,8 +74,10 @@ const MaterialList = () => {
         </div>
       </div>
 
-      <button type="button" className={styles.addMaterial} onClick={() => setOpenPopup('addMaterial')}>
-        教材を追加
+      <button type="button" className={styles.addMaterial} onClick={() => {
+        setOpenPopup('addMaterial'),
+        setStatus('learning')
+      }}>教材を追加
       </button>
     </div>
   )

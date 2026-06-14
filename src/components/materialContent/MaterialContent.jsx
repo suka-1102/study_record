@@ -5,7 +5,7 @@ import { useState, useEffect } from 'react';
 const MaterialContent = () => {
   const {
     openPopup, setOpenPopup,
-    saveIndex,
+    saveItemId,
     calendarTime, setCalendarTime,
     setMaterials,
   } = useStore()
@@ -16,16 +16,16 @@ const MaterialContent = () => {
 
   useEffect(() => {
     const data = JSON.parse(localStorage.getItem('materialsData')) || [];
-    const item = data[saveIndex];
+    const item = data.find(item => item.id === saveItemId);
     if (item) {
       setMemo(item.memo || '');
       setHours(0);
       setMinutes(0);
     }
-  }, [saveIndex])
+  }, [saveItemId])
 
   const materialDatas = JSON.parse(localStorage.getItem('materialsData')) || [];
-  const materialData = materialDatas[saveIndex]
+  const materialData = materialDatas.find(item => item.id === saveItemId)
 
   const studyTimeSet = () => {
     const h = Number(hours) || 0
@@ -49,8 +49,8 @@ const MaterialContent = () => {
     const data = localStorage.getItem('materialsData');
     const previousData = data ? JSON.parse(data) : [];
 
-    const upDatedData = previousData.map((item, index) => {
-      if (index === saveIndex) {
+    const upDatedData = previousData.map(item => {
+      if (item.id === saveItemId) {
         return {
           ...item,
           records: {
