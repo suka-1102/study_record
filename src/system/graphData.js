@@ -68,6 +68,17 @@ const calcThisMonthTotal = (previousData, thisMonthArray) => {
   return thisMonthTotalTime;
 };
 
+const calcTotalByMaterial = (previousData) => {
+  return previousData.filter(item => item.records?.hours).map(item => {
+      let total = 0;
+      item.records.hours.forEach((h, idx) => {
+        total += minutesToHour(h, item.records.minutes[idx]);
+      });
+      return { name: item.name, total };
+    }).filter(item => item.total > 0);
+};
+
+
 export const getGraphDatas = () => {
 
   const today = new Date();
@@ -104,10 +115,12 @@ export const getGraphDatas = () => {
 
   const graphDatas = buildGraphData(previousData, applyItemArray);
   const thisMonthTotalTime = calcThisMonthTotal(previousData, thisMonthArray);
+  const materialTotals = calcTotalByMaterial(previousData);
 
   return {
     graphDatas,
     thisMonthTotalTime,
-    totalTime
+    totalTime,
+    materialTotals
   }
 };

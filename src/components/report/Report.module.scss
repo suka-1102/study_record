@@ -75,5 +75,15 @@
     .chartWrapper {
       margin: 0 auto;
     }
+    .doughnutTitle {
+      margin-top: 40px;
+      margin-bottom: 8px;
+      text-align: left;
+    }
+    .doughnutChartWrapper {
+      width: 100%;
+      max-width: 350px;
+      height: 150px;
+    }
   }
 }

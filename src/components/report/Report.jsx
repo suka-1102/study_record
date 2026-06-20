@@ -1,5 +1,5 @@
 import styles from './Report.module.scss';
-import { Bar } from 'react-chartjs-2';
+import { Bar, Doughnut } from 'react-chartjs-2';
 import { getGraphDatas } from '../../system/graphData';
 
 import React from 'react';
@@ -8,6 +8,7 @@ import {
   CategoryScale,
   LinearScale,
   BarElement,
+  ArcElement,
   Title,
   Tooltip,
   Legend
@@ -17,6 +18,7 @@ ChartJS.register(
   CategoryScale,
   LinearScale,
   BarElement,
+  ArcElement,
   Title,
   Tooltip,
   Legend
@@ -27,7 +29,8 @@ const Report = () => {
   const {
     graphDatas,
     thisMonthTotalTime,
-    totalTime
+    totalTime,
+    materialTotals
   } = getGraphDatas()
   const options = {
     responsive: true,
@@ -40,6 +43,24 @@ const Report = () => {
         display: false,
       }
     }
+  };
+
+  const doughnutOptions = {
+    responsive: true,
+    maintainAspectRatio: false,
+    cutout: "3%",
+    plugins: {
+      legend: {
+        position: 'right',
+        onClick: null,
+        labels: { boxWidth: 12, font: { size: 12 } }
+      }
+    }
+  };
+
+  const getColor = (index, total) => {
+    const hue = (360 / total) * index;
+    return `hsl(${hue}, 70%, 55%)`;
   };
 
   const today = new Date();
@@ -55,22 +76,20 @@ const Report = () => {
     return `${month}/${day}\n${weekday}`;
 
   })
-  // const backgroundColors = [
-  //   'rgb(26, 30, 255)',
-  //   'rgb(210, 255, 46)',
-  //   'rgb(38, 255, 31)',
-  //   'rgb(255, 43, 43)',
-  //   'rgb(153, 102, 255)',
-  //   'rgb(255, 207, 86)',
-  //   'rgb(75, 192, 192)',
-  //   'rgb(255, 168, 81)',
-  //   'rgb(199, 199, 199)',
-  //   'rgb(83, 103, 255)',
-  // ];
-  const getColor = (index, total) => {
-    const hue = (360 / total) * index;
-    return `hsl(${hue}, 70%, 55%)`;
+
+  const doughnutData = {
+    labels: materialTotals.map(m => m.name),
+    datasets: [
+      {
+        data: materialTotals.map(m => m.total),
+        backgroundColor: materialTotals.map((_, i) =>
+          getColor(i, materialTotals.length)
+        ),
+        borderWidth: 0,
+      },
+    ],
   };
+
 
   const setDatas = []
   let todayTotalTime = 0;
@@ -102,20 +121,24 @@ const Report = () => {
               <p>今日</p>
               <span>{todayTotalTime}時間</span>
             </li>
-            <div className={styles.separater}></div>
+            <li className={styles.separater}></li>
             <li>
               <p>今月</p>
               <span>{thisMonthTotalTime}時間</span>
             </li>
-            <div className={styles.separater}></div>
+            <li className={styles.separater}></li>
             <li>
             
               <p>総学習時間</p>
               <span>{totalTime}時間</span>
             </li>
           </ul>
-          <div className='chartWrapper'>
+          <div className={styles.chartWrapper}>
             <Bar options={options} data={data}/>
+          </div>
+          <h2 className={styles.doughnutTitle}>時間配分</h2>
+          <div className={styles.doughnutChartWrapper}>
+            <Doughnut options={doughnutOptions} data={doughnutData}/>
           </div>
         </li>
       </ul>
