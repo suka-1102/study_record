@@ -55,18 +55,22 @@ const Report = () => {
     return `${month}/${day}\n${weekday}`;
 
   })
-  const backgroundColors = [
-    'rgb(26, 30, 255)',
-    'rgb(210, 255, 46)',
-    'rgb(38, 255, 31)',
-    'rgb(255, 43, 43)',
-    'rgb(153, 102, 255)',
-    'rgb(255, 207, 86)',
-    'rgb(75, 192, 192)',
-    'rgb(255, 168, 81)',
-    'rgb(199, 199, 199)',
-    'rgb(83, 103, 255)',
-  ];
+  // const backgroundColors = [
+  //   'rgb(26, 30, 255)',
+  //   'rgb(210, 255, 46)',
+  //   'rgb(38, 255, 31)',
+  //   'rgb(255, 43, 43)',
+  //   'rgb(153, 102, 255)',
+  //   'rgb(255, 207, 86)',
+  //   'rgb(75, 192, 192)',
+  //   'rgb(255, 168, 81)',
+  //   'rgb(199, 199, 199)',
+  //   'rgb(83, 103, 255)',
+  // ];
+  const getColor = (index, total) => {
+    const hue = (360 / total) * index;
+    return `hsl(${hue}, 70%, 55%)`;
+  };
 
   const setDatas = []
   let todayTotalTime = 0;
@@ -74,7 +78,7 @@ const Report = () => {
   graphDatas.forEach((d, index) => {
     setDatas.push({
       data: d,
-      backgroundColor: backgroundColors[index],
+      backgroundColor: getColor(index, graphDatas.length),
     });
     todayTotalTime += d[6]
   })
