@@ -17,6 +17,7 @@ const MaterialList = () => {
 
   return (
     <div className={styles.materials}>
+      <title>記録する | StudyRecord</title>
       <ul className={styles.materialList}>
         {displayMaterials.map((item) => {
           const isMenuOpen = openPopup === `materialDetail${item.id}`

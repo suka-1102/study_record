@@ -64,11 +64,6 @@ const AddMaterial = () => {
       </div>
       <div className={styles.contentsWrapper}>
         <div className={styles.imageSection}>
-          {/* <img
-            src='public/material.png'
-            alt='教材'
-            className={styles.bookImage}
-          /> */}
           <div className={styles.bookCover}>
             <div className={styles.bookCoverInner} />
           </div>

@@ -1,10 +1,10 @@
-// import styles from './Header.module.scss'
+import styles from './Header.module.scss'
 
 const Header = () => {
 
   return (
-    <header>
-
+    <header className={styles.header}>
+      <span className={styles.brand}>StudyRecord</span>
     </header>
   )
 }

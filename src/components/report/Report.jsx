@@ -111,6 +111,7 @@ const Report = () => {
 
   return (
     <div className={styles.report}>
+      <title>レポート | StudyRecord</title>
       <h1>記録</h1>
       <div className={styles.border}></div>
       <ul className={styles.contents}>
