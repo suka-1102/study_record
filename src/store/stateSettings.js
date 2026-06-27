@@ -3,11 +3,7 @@ import { create } from "zustand";
 
 const useStore = create((set) => ({
 
-  status: 'learning', 
-  setStatus: (s) => set({ status: s }),
-  
-
-  openPopup: '', 
+  openPopup: '',
   setOpenPopup: (status) => set({ openPopup: status }),
 
   saveItemId: '', 

@@ -26,8 +26,8 @@ const buildGraphData = (previousData, applyItemArray) => {
     const time = previousData[i[0]].records.date[i[1]]
     const ms = new Date(time).getTime();
     const MinutesToHour = minutesToHour(
-      previousData[i[0]].records.hours[i[1]],
-      previousData[i[0]].records.minutes[i[1]]
+      previousData[i[0]].records?.hours?.[i[1]] ?? 0,
+      previousData[i[0]].records?.minutes?.[i[1]] ?? 0
     );
 
     if (ms >= day0 && ms < day0 + oneDayMs) {
@@ -55,12 +55,11 @@ const calcThisMonthTotal = (previousData, thisMonthArray) => {
 
   thisMonthArray.forEach(i => {
     const time = previousData[i[0]].records.date[i[1]]
-    const ms = new Date(time).getTime();
     const MinutesToHour = minutesToHour(
-      previousData[i[0]].records.hours[i[1]],
-      previousData[i[0]].records.minutes[i[1]]
+      previousData[i[0]].records?.hours?.[i[1]] ?? 0,
+      previousData[i[0]].records?.minutes?.[i[1]] ?? 0
     );
-    
+
     thisMonthTotalTime += MinutesToHour
 
   })
@@ -72,7 +71,7 @@ const calcTotalByMaterial = (previousData) => {
   return previousData.filter(item => item.records?.hours).map(item => {
       let total = 0;
       item.records.hours.forEach((h, idx) => {
-        total += minutesToHour(h, item.records.minutes[idx]);
+        total += minutesToHour(h ?? 0, item.records.minutes?.[idx] ?? 0);
       });
       return { name: item.name, total };
     }).filter(item => item.total > 0);
@@ -99,8 +98,8 @@ export const getGraphDatas = () => {
       const oneWeekAgo = now - 7 * 24 * 60 * 60 * 1000;
       const startOfMonth = new Date(today.getFullYear(), today.getMonth(), 1).getTime();
       const MinutesToHour = minutesToHour(
-        item.records.hours[tIndex],
-        item.records.minutes[tIndex]
+        item.records?.hours?.[tIndex] ?? 0,
+        item.records?.minutes?.[tIndex] ?? 0
       );
       totalTime += MinutesToHour;
 

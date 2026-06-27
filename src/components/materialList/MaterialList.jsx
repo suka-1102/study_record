@@ -6,7 +6,6 @@ const MaterialList = () => {
     openPopup, setOpenPopup,
     saveItemId, setSaveItemId,
     deleteMaterialState, materials,
-    setStatus
   } = useStore()
 
   const deleteClick = () => {
@@ -30,7 +29,6 @@ const MaterialList = () => {
                 onClick={() => {
                   setOpenPopup(`materialContent`)
                   setSaveItemId(item.id)
-                  setStatus(item.status)
                 }}
               >
                 <div className={styles.bookCover}>
@@ -84,8 +82,7 @@ const MaterialList = () => {
       </div>
 
       <button type="button" className={styles.addMaterial} onClick={() => {
-        setOpenPopup('addMaterial'),
-        setStatus('learning')
+        setOpenPopup('addMaterial')
       }}>教材を追加
       </button>
     </div>

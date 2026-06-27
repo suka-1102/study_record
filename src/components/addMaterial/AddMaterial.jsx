@@ -5,30 +5,30 @@ import useStore from '../../store/stateSettings';
 const AddMaterial = () => {
   const [name, setName] = useState('');
   const [statusModal, setStatusModal] = useState(false)
+  const [status, setStatus] = useState('learning')
   const maxLength = 128;
 
   const {
     openPopup, setOpenPopup,
     addMaterialState,
-    status, setStatus
   } = useStore()
 
   const saveRecord = () => {
     if (!name.trim()) return;
     const addData = {
-      name: name, 
-      status:status, 
+      name: name,
+      status:status,
       id: Date.now(),
       records: {
-        date: [], 
+        date: [],
         hours: [],
         minutes: [],
       },
       memo: ''
-    } 
+    }
     addMaterialState(addData)
     setName('')
-    setStatus('')
+    setStatus('learning')
     setOpenPopup('')
   }
 
@@ -51,7 +51,7 @@ const AddMaterial = () => {
       <div className={styles.top}>
         <button className={styles.closeButton} onClick={() => {
           setOpenPopup('')
-          setStatus('')
+          setStatus('learning')
           setName('')
         }}
         >

@@ -27,13 +27,18 @@ const MaterialContent = () => {
   const materialDatas = JSON.parse(localStorage.getItem('materialsData')) || [];
   const materialData = materialDatas.find(item => item.id === saveItemId)
 
+  const validateStudyTime = (h, m) => {
+    if (h < 0 || h > 24 || m < 0 || m > 59) {
+      alert('時間は0～23、分は0〜59で入力してください')
+      return false
+    }
+    return true
+  }
+
   const studyTimeSet = () => {
     const h = Number(hours) || 0
     const m = Number(minutes) || 0
-    if (h < 0 || h > 24 || m < 0 || m > 59) {
-      alert('時間は0～23、分は0〜59で入力してください')
-      return
-    }
+    if (!validateStudyTime(h, m)) return
     setStudyTimeLog(false)
   }
 
@@ -45,6 +50,7 @@ const MaterialContent = () => {
       alert('時刻と学習時間を記録してください')
       return
     }
+    if (!validateStudyTime(hoursNum, minutesNum)) return
 
     const data = localStorage.getItem('materialsData');
     const previousData = data ? JSON.parse(data) : [];

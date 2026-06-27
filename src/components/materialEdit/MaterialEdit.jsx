@@ -5,20 +5,20 @@ import useStore from '../../store/stateSettings';
 const MaterialEdit = () => {
   const {
     openPopup, setOpenPopup,
-    status, setStatus,
     materials, saveItemId, setMaterials
   } = useStore()
 
-  
+
   const thisDataMaterial = materials.find(material => material.id === saveItemId)
   const [name, setName] = useState(thisDataMaterial?.name ?? '');
+  const [status, setStatus] = useState(thisDataMaterial?.status ?? '')
 
   useEffect(() => {
-    if(openPopup === 'materialEdit') {
-      setName(thisDataMaterial?.name ?? '')
-      setStatus(thisDataMaterial?.status ?? '')
-    }
-  }, [openPopup])
+    if (openPopup !== 'materialEdit') return
+    const target = materials.find(m => m.id === saveItemId)
+    setName(target?.name ?? '')
+    setStatus(target?.status ?? '')
+  }, [openPopup, saveItemId])
   const [statusModal, setStatusModal] = useState(false)
   const maxLength = 128;
 

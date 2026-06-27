@@ -42,5 +42,4 @@ If you are developing a production application, we recommend using TypeScript wi
 13. 編集ボタンの機能追加
 14. グラフの色の制限無くして何個教材を追加しても色が付与されるようにする。
 15. カレンダーのデザインの崩れを修正
-
 16. 円グラフの作成
